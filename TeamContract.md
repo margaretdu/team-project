@@ -51,4 +51,4 @@ Changes to this document will be made through a new branch + PR that must be rev
 Team Member Signatures:
 
 Margaret Du
-
+Maria Shamshurina
