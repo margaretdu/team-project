@@ -62,9 +62,9 @@ Export Flashcards to CSV
 | Team Member | MVP User Story/Cases |
 |-------------|--------------|
 | Maria | User Story 1|
-| Janica | Use Story 4|
-| Margaret | Use Story 2|
-| Roy | Use Story 3|
+| Janica | User Story 2|
+| Margaret | User Story 3|
+| Roy | User Story 4|
 ---
 ## Entities
 ### Entity 1
