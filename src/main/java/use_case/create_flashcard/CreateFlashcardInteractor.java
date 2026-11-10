@@ -28,7 +28,7 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
             flashcardPresenter.prepareFailView("Question cannot be empty");
         }
         else if ("".equals(createFlashcardInputData.getAnswer())) {
-            flashcardPresenter.prepareFailView("Anser cannot be empty");
+            flashcardPresenter.prepareFailView("Answer cannot be empty");
         }
         else {
             Flashcard flashcard = flashcardFactory.create(createFlashcardInputData.getQuestion(),
