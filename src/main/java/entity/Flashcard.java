@@ -14,7 +14,7 @@ public class Flashcard {
      * @param answer the answer
      * @throws IllegalArgumentException if the question or answer are empty
      */
-    public Flashcard(String question, String answer) {
+    public Flashcard(String question, String answer) throws IllegalArgumentException {
         if ("".equals(question)) {
             throw new IllegalArgumentException("Question cannot be empty");
         }
@@ -26,5 +26,6 @@ public class Flashcard {
     }
 
     public String getQuestion() { return question; }
+
     public String getAnswer() { return answer; }
 }
