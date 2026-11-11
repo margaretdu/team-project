@@ -40,5 +40,9 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
         }
     }
 
+    @Override
+    public void switchToHomescreenView() {
+        flashcardPresenter.switchToHomescreenView();
+    }
 
 }

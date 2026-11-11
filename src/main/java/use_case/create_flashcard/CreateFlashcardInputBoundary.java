@@ -9,4 +9,8 @@ public interface CreateFlashcardInputBoundary {
      * @param createFlashcardInputData the input data
      */
     void execute(CreateFlashcardInputData createFlashcardInputData);
+    /**
+     * Executes the switch to homescreen use case.
+     */
+    void switchToHomescreenView();
 }
