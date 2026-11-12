@@ -1,0 +1,41 @@
+package interface_adapter.get_all_decks;
+
+import interface_adapter.ViewManagerModel;
+import use_case.get_all_decks.GetAllDecksOutputBoundary;
+import use_case.get_all_decks.GetAllDecksOutputData;
+
+public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
+
+    private final GetAllDecksViewModel getAllDecksViewModel;
+//    private final GetDeckViewModel getDeckViewModel;
+    private final ViewManagerModel viewManagerModel;
+
+    public GetAllDecksPresenter(ViewManagerModel viewManagerModel,
+                          GetAllDecksViewModel getAllDecksViewModel) {
+        this.viewManagerModel = viewManagerModel;
+        this.getAllDecksViewModel = getAllDecksViewModel;
+    }
+
+    @Override
+    public void prepareSuccessView(GetAllDecksOutputData response) {
+        // On success, update the GetAllDecksViewModel's state
+        final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
+        getAllDecksState.setDecks(response.getDecks());
+//        this.loggedInViewModel.notifyStateChanged();
+
+        // and clear everything from the LoginViewModel's state
+//        this.loginViewModel.setState(new LoginState());
+//        this.loginViewModel.notifyStateChanged();
+
+        // switch to the logged in view
+//        this.viewManagerModel.setState(LoggedInViewModel.VIEW_NAME);
+//        this.viewManagerModel.notifyViewChanged();
+    }
+
+    @Override
+    public void prepareFailView(String error) {
+        final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
+        getAllDecksState.setGetAllDecksError(error);
+        getAllDecksViewModel.notifyStateChanged();
+    }
+}
