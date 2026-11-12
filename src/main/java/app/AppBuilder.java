@@ -1,6 +1,6 @@
 package app;
 
-import data_access.TestUserDataAccessObject;
+import data_access.MockUserDataAccessObject;
 import entity.DeckFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_all_decks.GetAllDecksController;
@@ -26,7 +26,7 @@ public class AppBuilder {
     // of the classes from the data_access package
 
     // DAO version using local file storage
-    final TestUserDataAccessObject userDataAccessObject = new TestUserDataAccessObject(deckFactory);
+    final MockUserDataAccessObject userDataAccessObject = new MockUserDataAccessObject(deckFactory);
 
     private GetAllDecksView getAllDecksView;
     private GetAllDecksViewModel getAllDecksViewModel;
