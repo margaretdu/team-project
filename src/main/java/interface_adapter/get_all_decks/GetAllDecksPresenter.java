@@ -21,15 +21,16 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
         // On success, update the GetAllDecksViewModel's state
         final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
         getAllDecksState.setDecks(response.getDecks());
+        this.getAllDecksViewModel.notifyStateChanged();
 //        this.loggedInViewModel.notifyStateChanged();
 
         // and clear everything from the LoginViewModel's state
 //        this.loginViewModel.setState(new LoginState());
 //        this.loginViewModel.notifyStateChanged();
 
-        // switch to the logged in view
-//        this.viewManagerModel.setState(LoggedInViewModel.VIEW_NAME);
-//        this.viewManagerModel.notifyViewChanged();
+        // switch to the GetAllDecks in view
+        this.viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
+        this.viewManagerModel.notifyViewChanged();
     }
 
     @Override

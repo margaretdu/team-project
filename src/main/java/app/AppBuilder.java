@@ -62,6 +62,14 @@ public class AppBuilder {
         viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
 
+        getAllDecksView.initialExecuteGetAllDecks();
+
         return application;
+    }
+
+    public void setGUI() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ignored) {}
     }
 }

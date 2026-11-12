@@ -6,6 +6,7 @@ import interface_adapter.get_all_decks.GetAllDecksViewModel;
 
 import interface_adapter.get_all_decks.GetAllDecksViewModelListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,8 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
     private static final Color BADGE_BG = new Color(226, 232, 240);         // Light Gray Pill
     private static final Color BORDER_COLOR = new Color(226, 232, 240);
 
+    private static final String FONT_NAME = "Segoe UI";
+
     // Class used for swing JList
     static class SwingDeck {
         private final String name;
@@ -56,31 +59,84 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
 
         //title text
         final JLabel title = new JLabel("Select Flashcard Deck");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setFont(new Font(FONT_NAME, Font.BOLD, 18));
         title.setForeground(TEXT_PRIMARY);
-//
+
+        // list of decks
+        JList<SwingDeck> deckList = new JList<>(deckListModel);
+        deckList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        deckList.setBackground(CARD_COLOR);
+        deckList.setCellRenderer(new SwingDeckRenderer());
+
+        // scroll pane
+        JScrollPane scrollPane = new JScrollPane(deckList);
+        scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, 1));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(12); // makes scrolling smoother
+
 //        final JPanel buttons = new JPanel();
 //        open = new JButton("Open");
 //        buttons.add(open);
 
-        this.addComponentListener(
-                new ComponentAdapter() {
-                    public void componentShown(ComponentEvent evt) {
-                        if (evt.getSource().equals(this)) {
-                            getAllDecksController.execute();
-                        }
-                    }
-                }
-        );
+//        this.addComponentListener(
+//                new ComponentAdapter() {
+//                    public void componentShown(ComponentEvent evt) {
+//                        if (evt.getSource().equals(this)) {
+//                            getAllDecksController.execute();
+//                        }
+//                    }
+//                }
+//        );
 
-
-
-        this.setSize(400, 460);
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(0, 14));
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
+        this.setBackground(BG_COLOR);
 
         this.add(title, BorderLayout.NORTH);
+        this.add(scrollPane, BorderLayout.CENTER);
 //        this.add(getAllDecksErrorField);
 //        this.add(buttons);
+    }
+
+    static class SwingDeckRenderer extends JPanel implements ListCellRenderer<SwingDeck> {
+        private final JLabel nameLabel = new JLabel();
+        private final JLabel countLabel = new JLabel();
+
+        public SwingDeckRenderer() {
+            setLayout(new BorderLayout(200, 0));
+            setBorder(new EmptyBorder(10, 14, 10, 14));
+
+            nameLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 14));
+            nameLabel.setForeground(TEXT_PRIMARY);
+
+            countLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 12));
+//            countLabel.setOpaque(true);
+            countLabel.setBorder(new EmptyBorder(3, 10, 3, 10));
+
+            add(nameLabel, BorderLayout.CENTER);
+            add(countLabel, BorderLayout.EAST);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+                JList<? extends SwingDeck> list, SwingDeck deck, int index,
+                boolean isSelected, boolean cellHasFocus) {
+
+            nameLabel.setText(deck.getName());
+            countLabel.setText(String.valueOf(deck.getCount()) + " cards");
+
+            setBackground(CARD_COLOR);
+            nameLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 14));
+            nameLabel.setForeground(TEXT_PRIMARY);
+//            countLabel.setBackground(BADGE_BG);
+            countLabel.setForeground(TEXT_PRIMARY);
+
+            // spacing between rows
+            setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(0, 0, 1, 0, BG_COLOR),
+                    new EmptyBorder(10, 14, 10, 14)
+            ));
+            return this;
+        }
     }
 
     /**
@@ -106,5 +162,9 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
 
     public void setGetAllDecksController(GetAllDecksController getAllDecksController) {
         this.getAllDecksController = getAllDecksController;
+    }
+
+    public void initialExecuteGetAllDecks() {
+        getAllDecksController.execute();
     }
 }
