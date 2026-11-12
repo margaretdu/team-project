@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.Map;
 
 /**
  * The View for when the user is viewing all the flashcard decks.
@@ -17,41 +20,67 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
 
     private final GetAllDecksViewModel getAllDecksViewModel;
 
+    private final DefaultListModel<SwingDeck> deckListModel = new DefaultListModel<>();
     private final JLabel getAllDecksErrorField = new JLabel();
 
-    private final JButton open;
+//    private final JButton open;
 
     private GetAllDecksController getAllDecksController = null;
+
+    // Colors
+    private static final Color BG_COLOR = new Color(245, 247, 250);
+    private static final Color CARD_COLOR = Color.WHITE;
+    private static final Color PRIMARY_COLOR = new Color(59, 130, 246);    // Modern Blue
+    private static final Color SELECTION_BG = new Color(239, 246, 255);     // Soft Blue Tint
+    private static final Color TEXT_PRIMARY = new Color(30, 41, 59);        // Dark Slate
+    private static final Color BADGE_BG = new Color(226, 232, 240);         // Light Gray Pill
+    private static final Color BORDER_COLOR = new Color(226, 232, 240);
+
+    // Class used for swing JList
+    static class SwingDeck {
+        private final String name;
+        private final int count;
+
+        public SwingDeck(String name, int count) {
+            this.name = name;
+            this.count = count;
+        }
+
+        public String getName() { return name; }
+        public int getCount() { return count; }
+    }
 
     public GetAllDecksView(GetAllDecksViewModel getAllDecksViewModel) {
         this.getAllDecksViewModel = getAllDecksViewModel;
         this.getAllDecksViewModel.addListener(this);
 
+        //title text
         final JLabel title = new JLabel("Select Flashcard Deck");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final JPanel buttons = new JPanel();
-        open = new JButton("Open");
-        buttons.add(open);
-
-//        open.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(open)) {
-//                            final GetAllDecksState currentState = getAllDecksViewModel.getState();
+        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setForeground(TEXT_PRIMARY);
 //
-//                            getAllDecksController.execute(
-//                                    currentState.getSelectedDeck()
-//                            );
-//                        }
-//                    }
-//                }
-//        );
+//        final JPanel buttons = new JPanel();
+//        open = new JButton("Open");
+//        buttons.add(open);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(title);
-        this.add(getAllDecksErrorField);
-        this.add(buttons);
+        this.addComponentListener(
+                new ComponentAdapter() {
+                    public void componentShown(ComponentEvent evt) {
+                        if (evt.getSource().equals(this)) {
+                            getAllDecksController.execute();
+                        }
+                    }
+                }
+        );
+
+
+
+        this.setSize(400, 460);
+        this.setLayout(new BorderLayout());
+
+        this.add(title, BorderLayout.NORTH);
+//        this.add(getAllDecksErrorField);
+//        this.add(buttons);
     }
 
     /**
@@ -69,7 +98,10 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
     }
 
     private void setFields(GetAllDecksState state) {
-//        usernameInputField.setText(state.getUsername());
+        Map<String, Integer> map = state.getDecks();
+        for (String name : map.keySet()) {
+            deckListModel.addElement(new SwingDeck(name, map.get(name)));
+        }
     }
 
     public void setGetAllDecksController(GetAllDecksController getAllDecksController) {

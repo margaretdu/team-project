@@ -54,12 +54,12 @@ public class AppBuilder {
     }
 
     public JFrame build() {
-        final JFrame application = new JFrame("User Login Example");
+        final JFrame application = new JFrame("Flashcards");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(getAllDecksViewModel.VIEW_NAME);
+        viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
 
         return application;
