@@ -25,6 +25,20 @@ public class Flashcard {
         this.answer = answer;
     }
 
+    public void updateQuestion(String question) throws IllegalArgumentException {
+        if ("".equals(question)) {
+            throw new IllegalArgumentException("Question cannot be empty");
+        }
+        this.question = question;
+    }
+
+    public void updateAnswer(String answer) throws IllegalArgumentException {
+        if ("".equals(answer)) {
+            throw new IllegalArgumentException("Answer cannot be empty");
+        }
+        this.answer = answer;
+    }
+
     public String getQuestion() { return question; }
 
     public String getAnswer() { return answer; }
