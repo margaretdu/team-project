@@ -2,7 +2,6 @@ package use_case.get_all_decks;
 
 import entity.Deck;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,8 @@ public class GetAllDecksInteractor implements GetAllDecksInputBoundary{
                 decksWithCount.put(deck.getName(), deck.getFlashcardCount());
             }
 
-            final GetAllDecksOutputData getAllDecksOutputData = new GetAllDecksOutputData(decksWithCount);
+            final GetAllDecksOutputData getAllDecksOutputData =
+                    new GetAllDecksOutputData(decksWithCount);
             getAllDecksPresenter.prepareSuccessView(getAllDecksOutputData);
         }
     }
