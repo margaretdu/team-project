@@ -10,7 +10,7 @@ import java.util.List;
 public interface GetAllDecksUserDataAccessInterface {
 
     /**
-     * @return a list of all avaliable flashcard decks
+     * @return a list of all available flashcard decks
      */
     List<Deck> getAllDecks();
 

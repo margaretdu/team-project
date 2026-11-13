@@ -10,4 +10,9 @@ public interface GetAllDecksInputBoundary {
      * @param getAllDecksInputData the input data
      */
     void execute(GetAllDecksInputData getAllDecksInputData);
+
+    /**
+     * Executes the switch to deck view use case.
+     */
+    void switchToDeckView();
 }

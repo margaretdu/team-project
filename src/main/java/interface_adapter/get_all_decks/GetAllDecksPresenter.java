@@ -4,10 +4,12 @@ import interface_adapter.ViewManagerModel;
 import use_case.get_all_decks.GetAllDecksOutputBoundary;
 import use_case.get_all_decks.GetAllDecksOutputData;
 
+/**
+ * The Presenter for the GetAllDecks Use Case.
+ */
 public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
 
     private final GetAllDecksViewModel getAllDecksViewModel;
-//    private final GetDeckViewModel getDeckViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public GetAllDecksPresenter(ViewManagerModel viewManagerModel,
@@ -22,11 +24,6 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
         final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
         getAllDecksState.setDecks(response.getDecks());
         this.getAllDecksViewModel.notifyStateChanged();
-//        this.loggedInViewModel.notifyStateChanged();
-
-        // and clear everything from the LoginViewModel's state
-//        this.loginViewModel.setState(new LoginState());
-//        this.loginViewModel.notifyStateChanged();
 
         // switch to the GetAllDecks in view
         this.viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
@@ -34,9 +31,16 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String error) {
+    public void prepareEmptyView(String error) {
         final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
         getAllDecksState.setGetAllDecksError(error);
         getAllDecksViewModel.notifyStateChanged();
+    }
+
+    @Override
+    public void switchToDeckView() {
+        // TODO: implement switchToDeckView
+//        viewManagerModel.setState(GetDeckViewModel.VIEW_NAME);
+//        viewManagerModel.notifyViewChanged();
     }
 }

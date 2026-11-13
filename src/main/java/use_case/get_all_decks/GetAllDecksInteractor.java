@@ -9,23 +9,23 @@ import java.util.Map;
 /**
  * The GetAllDecks Interactor.
  */
-public class GetAllDecksInteractor implements GetAllDecksInputBoundary{
-    private final GetAllDecksUserDataAccessInterface userDataAccessObject;
+public class GetAllDecksInteractor implements GetAllDecksInputBoundary {
+    private final GetAllDecksUserDataAccessInterface deckDataAccessObject;
     private final GetAllDecksOutputBoundary getAllDecksPresenter;
 
-    public GetAllDecksInteractor(GetAllDecksUserDataAccessInterface userDataAccessInterface,
+    public GetAllDecksInteractor(GetAllDecksUserDataAccessInterface deckDataAccessInterface,
                            GetAllDecksOutputBoundary getAllDecksOutputBoundary) {
-        this.userDataAccessObject = userDataAccessInterface;
+        this.deckDataAccessObject = deckDataAccessInterface;
         this.getAllDecksPresenter = getAllDecksOutputBoundary;
     }
 
     @Override
     public void execute(GetAllDecksInputData getAllDecksInputData) {
-        if (userDataAccessObject.isEmpty()) {
-            getAllDecksPresenter.prepareFailView("No Flashcard Decks have been added");
+        if (deckDataAccessObject.isEmpty()) {
+            getAllDecksPresenter.prepareEmptyView("No Flashcard Decks have been added");
         }
         else {
-            final List<Deck> decks = userDataAccessObject.getAllDecks();
+            final List<Deck> decks = deckDataAccessObject.getAllDecks();
             final Map<String, Integer> decksWithCount = new HashMap<>();
 
             for (Deck deck: decks) {
@@ -37,5 +37,8 @@ public class GetAllDecksInteractor implements GetAllDecksInputBoundary{
             getAllDecksPresenter.prepareSuccessView(getAllDecksOutputData);
         }
     }
+
+    @Override
+    public void switchToDeckView() { getAllDecksPresenter.switchToDeckView(); }
 }
 

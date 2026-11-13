@@ -10,7 +10,7 @@ public class GetAllDecksViewModel {
 
     private final List<GetAllDecksViewModelListener> listeners = new ArrayList<>();
 
-    public static final String VIEW_NAME = "list decks";
+    public static final String VIEW_NAME = "get all decks";
 
     private GetAllDecksState state = new GetAllDecksState();
 

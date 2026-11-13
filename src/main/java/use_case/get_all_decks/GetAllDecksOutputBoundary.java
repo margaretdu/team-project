@@ -11,8 +11,14 @@ public interface GetAllDecksOutputBoundary {
     void prepareSuccessView(GetAllDecksOutputData outputData);
 
     /**
-     * Prepares the failure view for the GetAllDecks Use Case.
+     * Prepares the empty view for the GetAllDecks Use Case
+     * when there are no available decks to display.
      * @param errorMessage the explanation of the failure
      */
-    void prepareFailView(String errorMessage);
+    void prepareEmptyView(String errorMessage);
+
+    /**
+     * Switches to the Deck View.
+     */
+    void switchToDeckView();
 }

@@ -1,6 +1,6 @@
 package app;
 
-import data_access.MockUserDataAccessObject;
+import data_access.MockDeckDataAccessObject;
 import entity.DeckFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_all_decks.GetAllDecksController;
@@ -20,13 +20,15 @@ public class AppBuilder {
     private final CardLayout cardLayout = new CardLayout();
     final DeckFactory deckFactory = new DeckFactory();
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+    // initializing this adds it as a listener to viewManagerModel so this line is needed
     ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // set which data access implementation to use, can be any
     // of the classes from the data_access package
 
     // DAO version using local file storage
-    final MockUserDataAccessObject userDataAccessObject = new MockUserDataAccessObject(deckFactory);
+    final MockDeckDataAccessObject deckDataAccessObject = new MockDeckDataAccessObject(deckFactory);
 
     private GetAllDecksView getAllDecksView;
     private GetAllDecksViewModel getAllDecksViewModel;
@@ -46,7 +48,7 @@ public class AppBuilder {
         final GetAllDecksOutputBoundary getAllDecksOutputBoundary = new GetAllDecksPresenter(viewManagerModel,
                 getAllDecksViewModel);
         final GetAllDecksInputBoundary getAllDecksInteractor = new GetAllDecksInteractor(
-                userDataAccessObject, getAllDecksOutputBoundary);
+                deckDataAccessObject, getAllDecksOutputBoundary);
 
         GetAllDecksController controller = new GetAllDecksController(getAllDecksInteractor);
         getAllDecksView.setGetAllDecksController(controller);
@@ -67,6 +69,7 @@ public class AppBuilder {
         return application;
     }
 
+    // makes java swing look more modern, has gui match the operating system
     public void setGUI() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
