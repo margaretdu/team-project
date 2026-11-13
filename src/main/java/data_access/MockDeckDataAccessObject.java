@@ -8,9 +8,12 @@ import use_case.get_all_decks.GetAllDecksUserDataAccessInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockUserDataAccessObject implements GetAllDecksUserDataAccessInterface {
+/**
+ * DeckDataAccessObject used for testing, gives mock data
+ */
+public class MockDeckDataAccessObject implements GetAllDecksUserDataAccessInterface {
 
-    public MockUserDataAccessObject(DeckFactory deckFactory) {}
+    public MockDeckDataAccessObject(DeckFactory deckFactory) {}
 
     private void mockDataAddFlashcards(Deck deck) {
         deck.addFlashcard(new Flashcard("question1", "answer1"));
