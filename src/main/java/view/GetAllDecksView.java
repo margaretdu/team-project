@@ -24,18 +24,18 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
     private final CardLayout centerLayout = new CardLayout();
     private final JPanel centerPanel = new JPanel(centerLayout);
 
-//    private final JButton open;
+    private final JButton openButton;
 
     private GetAllDecksController getAllDecksController = null;
 
     // Colors
-    private static final Color BG_COLOR = new Color(244, 247, 245);      // Mint-tinted Off-White
+    private static final Color BG_COLOR = new Color(244, 247, 245); // Green Tinted Off-White
     private static final Color CARD_COLOR = Color.WHITE;
-    private static final Color PRIMARY_COLOR = new Color(16, 185, 129);  // Emerald Green
-    private static final Color SELECTION_BG = new Color(236, 253, 245);  // Very Light Mint
-    private static final Color TEXT_PRIMARY = new Color(20, 42, 34);     // Deep Forest Slate
-    private static final Color BADGE_BG = new Color(225, 235, 230);      // Soft Sage Gray
-    private static final Color BORDER_COLOR = new Color(225, 235, 230);
+    private static final Color PRIMARY_COLOR = new Color(16, 185, 129); // Green
+    private static final Color SELECTION_BG = new Color(236, 253, 245); // Light Green
+    private static final Color TEXT_PRIMARY = new Color(20, 42, 34); // Dark Grey
+    private static final Color BG_SECONDARY = new Color(225, 235, 230); // Light Gray
+    private static final Color BORDER_COLOR = new Color(225, 235, 230); // Light Gray
 
     private static final String FONT_NAME = "Segoe UI";
 
@@ -81,9 +81,21 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
         scrollPane.setVisible(false);
         centerPanel.add(scrollPane, "LIST");
 
-//        final JPanel buttons = new JPanel();
-//        open = new JButton("Open");
-//        buttons.add(open);
+        // open button
+        openButton = createButton("Open");
+        openButton.setEnabled(false); // Only enabled when an item is selected
+
+        // Enable openButton when a Deck is selected
+        deckList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                openButton.setEnabled(deckList.getSelectedValue() != null);
+            }
+        });
+
+        // footer panel
+        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        footerPanel.setBackground(BG_COLOR);
+        footerPanel.add(openButton);
 
         this.setLayout(new BorderLayout(100, 14));
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -93,7 +105,7 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
 
         this.add(title, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
-//        this.add(buttons);
+        this.add(footerPanel, BorderLayout.SOUTH);
     }
 
     // Sets the format of each Deck in the list
@@ -109,7 +121,7 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
             nameLabel.setForeground(TEXT_PRIMARY);
 
             countLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 12));
-            countLabel.setOpaque(true); // Puts a box behind the card count label
+//            countLabel.setOpaque(true); // Puts a box behind the card count label
             countLabel.setBorder(new EmptyBorder(3, 10, 3, 10));
 
             add(nameLabel, BorderLayout.CENTER);
@@ -129,12 +141,12 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
                 nameLabel.setFont(new Font(FONT_NAME, Font.BOLD, 14));
                 nameLabel.setForeground(PRIMARY_COLOR);
                 countLabel.setBackground(PRIMARY_COLOR);
-                countLabel.setForeground(Color.WHITE);
+                countLabel.setForeground(PRIMARY_COLOR);
             } else {
                 setBackground(CARD_COLOR);
                 nameLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 14));
                 nameLabel.setForeground(TEXT_PRIMARY);
-                countLabel.setBackground(BADGE_BG);
+                countLabel.setBackground(BG_SECONDARY);
                 countLabel.setForeground(TEXT_PRIMARY);
             }
 
@@ -145,6 +157,20 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
             ));
             return this;
         }
+    }
+
+    // Creates and formats a button
+    private static JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font(FONT_NAME, Font.BOLD, 13));
+        button.setForeground(Color.WHITE);
+        button.setBackground(PRIMARY_COLOR);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setBorder(new EmptyBorder(10, 20, 10, 20));
+        return button;
     }
 
     /**
@@ -168,8 +194,8 @@ public class GetAllDecksView extends JPanel implements ActionListener, GetAllDec
 
     private void setFields(GetAllDecksState state) {
         Map<String, Integer> map = state.getDecks();
-        for (String name : map.keySet()) {
-            deckListModel.addElement(new SwingDeck(name, map.get(name)));
+        for (Map.Entry<String,Integer> entry : map.entrySet()) {
+            deckListModel.addElement(new SwingDeck(entry.getKey(), entry.getValue()));
         }
     }
 

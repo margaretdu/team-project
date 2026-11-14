@@ -39,7 +39,6 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
 
     @Override
     public void switchToDeckView() {
-        // TODO: implement switchToDeckView
 //        viewManagerModel.setState(GetDeckViewModel.VIEW_NAME);
 //        viewManagerModel.notifyViewChanged();
     }
