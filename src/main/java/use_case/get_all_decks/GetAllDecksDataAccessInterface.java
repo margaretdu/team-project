@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * DAO interface fo
  */
-public interface GetAllDecksUserDataAccessInterface {
+public interface GetAllDecksDataAccessInterface {
 
     /**
      * @return a list of all available flashcard decks

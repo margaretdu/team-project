@@ -10,11 +10,11 @@ import java.util.Map;
  * The GetAllDecks Interactor.
  */
 public class GetAllDecksInteractor implements GetAllDecksInputBoundary {
-    private final GetAllDecksUserDataAccessInterface deckDataAccessObject;
+    private final GetAllDecksDataAccessInterface deckDataAccessObject;
     private final GetAllDecksOutputBoundary getAllDecksPresenter;
 
-    public GetAllDecksInteractor(GetAllDecksUserDataAccessInterface deckDataAccessInterface,
-                           GetAllDecksOutputBoundary getAllDecksOutputBoundary) {
+    public GetAllDecksInteractor(GetAllDecksDataAccessInterface deckDataAccessInterface,
+                                 GetAllDecksOutputBoundary getAllDecksOutputBoundary) {
         this.deckDataAccessObject = deckDataAccessInterface;
         this.getAllDecksPresenter = getAllDecksOutputBoundary;
     }

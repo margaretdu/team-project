@@ -3,7 +3,7 @@ package data_access;
 import entity.Deck;
 import entity.DeckFactory;
 import entity.Flashcard;
-import use_case.get_all_decks.GetAllDecksUserDataAccessInterface;
+import use_case.get_all_decks.GetAllDecksDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * DeckDataAccessObject used for testing, gives mock data
  */
-public class MockDeckDataAccessObject implements GetAllDecksUserDataAccessInterface {
+public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface {
 
     public MockDeckDataAccessObject(DeckFactory deckFactory) {}
 
