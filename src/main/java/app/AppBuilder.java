@@ -64,7 +64,7 @@ public class AppBuilder {
         viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
 
-        // initial execution of GetALlDecksUseCase when program starts
+        // initial execution of GetAllDecksUseCase when program starts
         getAllDecksView.initialExecuteGetAllDecks();
 
         return application;

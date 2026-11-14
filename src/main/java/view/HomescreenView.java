@@ -19,6 +19,7 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
 
     private final GetAllDecksViewModel getAllDecksViewModel;
 
+    // Used for the scroll pane
     private final DefaultListModel<SwingDeck> deckListModel = new DefaultListModel<>();
     private final JLabel getAllDecksErrorField = new JLabel();
     private final CardLayout centerLayout = new CardLayout();
@@ -83,7 +84,7 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
 
         // open button
         openButton = createButton("Open");
-        openButton.setEnabled(false); // Only enabled when an item is selected
+        openButton.setEnabled(false); // Disable button until an item is selected
 
         // Enable openButton when a Deck is selected
         deckList.addListSelectionListener(e -> {
@@ -121,7 +122,6 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
             nameLabel.setForeground(TEXT_PRIMARY);
 
             countLabel.setFont(new Font(FONT_NAME, Font.PLAIN, 12));
-//            countLabel.setOpaque(true); // Puts a box behind the card count label
             countLabel.setBorder(new EmptyBorder(3, 10, 3, 10));
 
             add(nameLabel, BorderLayout.CENTER);

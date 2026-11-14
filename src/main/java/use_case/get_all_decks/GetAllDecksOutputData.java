@@ -13,5 +13,5 @@ public class GetAllDecksOutputData {
         this.decks = decks;
     }
 
-    public Map<String, Integer> getDecks() {return this.decks; }
+    public Map<String, Integer> getDecks() { return this.decks; }
 }

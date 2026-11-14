@@ -1,7 +1,7 @@
 package use_case.get_all_decks;
 
 /**
- * The output boundary for the GetALlDecks Use Case.
+ * The output boundary for the GetAllDecks Use Case.
  */
 public interface GetAllDecksOutputBoundary {
     /**
