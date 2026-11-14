@@ -9,7 +9,7 @@ import interface_adapter.get_all_decks.GetAllDecksViewModel;
 import use_case.get_all_decks.GetAllDecksInputBoundary;
 import use_case.get_all_decks.GetAllDecksInteractor;
 import use_case.get_all_decks.GetAllDecksOutputBoundary;
-import view.GetAllDecksView;
+import view.HomescreenView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -30,7 +30,7 @@ public class AppBuilder {
     // DAO version using local file storage
     final MockDeckDataAccessObject deckDataAccessObject = new MockDeckDataAccessObject(deckFactory);
 
-    private GetAllDecksView getAllDecksView;
+    private HomescreenView getAllDecksView;
     private GetAllDecksViewModel getAllDecksViewModel;
 
     public AppBuilder() {
@@ -39,7 +39,7 @@ public class AppBuilder {
 
     public AppBuilder addGetAllDecksView() {
         getAllDecksViewModel = new GetAllDecksViewModel();
-        getAllDecksView = new GetAllDecksView(getAllDecksViewModel);
+        getAllDecksView = new HomescreenView(getAllDecksViewModel);
         cardPanel.add(getAllDecksView, getAllDecksViewModel.VIEW_NAME);
         return this;
     }
