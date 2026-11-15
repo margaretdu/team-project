@@ -356,4 +356,35 @@ public class DeckView extends JPanel implements ActionListener, GetDeckViewModel
             return this;
         }
     }
+
+
+    /**
+     * React to a button click that results in evt.
+     * @param evt the ActionEvent to react to
+     */
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
+    }
+
+    @Override
+    public void stateChanged() {
+        deckModel.clear();
+        setFields(getDeckViewModel.getState());
+        getDeckErrorField.setText(getDeckViewModel.getState().getDeckError());
+    }
+
+    private void setFields(GetDeckState state) {
+        deckName.setText(state.getDeckName());
+        List<Map<String, String>> list = state.getFlashcards();
+        for (Map<String,String> flashcard : list) {
+            for (Map.Entry<String,String> f : flashcard.entrySet()) {
+                deckModel.addElement(new DeckView.SwingDeck(f.getKey(), f.getValue()));
+            }
+        }
+    }
+
+    public void setGetDeckController(GetDeckController getDeckController) {
+        this.getDeckController = getDeckController;
+    }
+
 }
