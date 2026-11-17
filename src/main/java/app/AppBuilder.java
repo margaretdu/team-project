@@ -85,7 +85,6 @@ public class AppBuilder {
      }
  */
 
-
     public AppBuilder addGetAllDecksView() {
         getAllDecksViewModel = new GetAllDecksViewModel();
         getAllDecksView = new HomescreenView(getAllDecksViewModel);

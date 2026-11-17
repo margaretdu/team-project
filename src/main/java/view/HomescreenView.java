@@ -95,7 +95,7 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
             }
         });
 
-        // create flashcard button
+        // create deck button
         createButton = createButton("Create Deck");
         createButton.setEnabled(true); //Button is always enabled
 
