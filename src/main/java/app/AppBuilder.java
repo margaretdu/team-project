@@ -48,13 +48,20 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
+    /**
+    public AppBuilder addCreateDeckView(){
+        createDeckViewModel = new CreateDeckViewModel();
+        createDeckView = new CreateDeckView(createDeckViewModel);
+        cardPanel.add(createDeckView, CreateDeckViewModel.VIEW_NAME);
+        return this;
+
     public AppBuilder addCreateFlashcardView(){
         createFlashcardViewModel = new CreateFlashcardViewModel();
         createFlashcardView = new CreateFlashcardView(createFlashcardViewModel);
         cardPanel.add(createFlashcardView, CreateFlashcardViewModel.VIEW_NAME);
         return this;
     }
-/**
+
     public AppBuilder addCreateFlashcardUseCase() {
         final CreateFlashcardOutputBoundary createFlashcardOutputBoundary = new CreateFlashcardPresenter(viewManagerModel,
                 createFlashcardViewModel);
@@ -65,7 +72,19 @@ public class AppBuilder {
         createFlashcardView.setCreateFlashcardController(controller);
         return this;
     }
-*/
+
+     public AppBuilder addCreateDeckUseCase() {
+     final CreateDeckOutputBoundary createDeckOutputBoundary = new CreateDeckPresenter(viewManagerModel,
+     createDeckViewModel);
+     final CreateDeckInputBoundary createDeckInteractor = new CreateDeckInteractor(
+     DeckDataAccessObject, createDeckOutputBoundary, DeckFactory);
+
+     CreateDeckController controller = new CreateDeckController(createDeckInteractor);
+     createDeckView.setCreateDeckController(controller);
+     return this;
+     }
+ */
+
 
     public AppBuilder addGetAllDecksView() {
         getAllDecksViewModel = new GetAllDecksViewModel();

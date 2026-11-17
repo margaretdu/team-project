@@ -9,8 +9,10 @@ public class Main {
         JFrame application = appBuilder
                 .addGetAllDecksView()
                 .addGetAllDecksUseCase()
-                // .addCreateFlashcardView
+                // .addCreateFlashcardView()
                 // .addCreateFlashcardUseCase()
+                // .addCreateDeckView()
+                // .addCreateDeckUseCase()
                 .build();
 
         application.pack();
