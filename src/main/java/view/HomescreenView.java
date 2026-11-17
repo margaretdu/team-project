@@ -27,6 +27,8 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
 
     private final JButton openButton;
 
+    private final JButton createButton;
+
     private GetAllDecksController getAllDecksController = null;
 
     // Colors
@@ -93,9 +95,14 @@ public class HomescreenView extends JPanel implements ActionListener, GetAllDeck
             }
         });
 
+        // create flashcard button
+        createButton = createButton("Create Deck");
+        createButton.setEnabled(true); //Button is always enabled
+
         // footer panel
         JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         footerPanel.setBackground(BG_COLOR);
+        footerPanel.add(createButton);
         footerPanel.add(openButton);
 
         this.setLayout(new BorderLayout(100, 14));

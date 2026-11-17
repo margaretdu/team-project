@@ -2,13 +2,21 @@ package app;
 
 import data_access.MockDeckDataAccessObject;
 import entity.DeckFactory;
+import entity.FlashcardFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.create_flashcard.CreateFlashcardController;
+import interface_adapter.create_flashcard.CreateFlashcardPresenter;
+import interface_adapter.create_flashcard.CreateFlashcardViewModel;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_all_decks.GetAllDecksPresenter;
 import interface_adapter.get_all_decks.GetAllDecksViewModel;
+import use_case.create_flashcard.CreateFlashcardInputBoundary;
+import use_case.create_flashcard.CreateFlashcardInteractor;
+import use_case.create_flashcard.CreateFlashcardOutputBoundary;
 import use_case.get_all_decks.GetAllDecksInputBoundary;
 import use_case.get_all_decks.GetAllDecksInteractor;
 import use_case.get_all_decks.GetAllDecksOutputBoundary;
+import view.CreateFlashcardView;
 import view.HomescreenView;
 import view.ViewManager;
 
@@ -18,6 +26,7 @@ import java.awt.*;
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
+    final FlashcardFactory flashcardFactory = new FlashcardFactory();
     final DeckFactory deckFactory = new DeckFactory();
     final ViewManagerModel viewManagerModel = new ViewManagerModel();
 
@@ -32,10 +41,31 @@ public class AppBuilder {
 
     private HomescreenView getAllDecksView;
     private GetAllDecksViewModel getAllDecksViewModel;
+    private CreateFlashcardView createFlashcardView;
+    private CreateFlashcardViewModel createFlashcardViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
+
+    public AppBuilder addCreateFlashcardView(){
+        createFlashcardViewModel = new CreateFlashcardViewModel();
+        createFlashcardView = new CreateFlashcardView(createFlashcardViewModel);
+        cardPanel.add(createFlashcardView, CreateFlashcardViewModel.VIEW_NAME);
+        return this;
+    }
+/**
+    public AppBuilder addCreateFlashcardUseCase() {
+        final CreateFlashcardOutputBoundary createFlashcardOutputBoundary = new CreateFlashcardPresenter(viewManagerModel,
+                createFlashcardViewModel);
+        final CreateFlashcardInputBoundary createFlashcardInteractor = new CreateFlashcardInteractor(
+                flashcardDataAccessObject, createFlashcardOutputBoundary, flashcardFactory);
+
+        CreateFlashcardController controller = new CreateFlashcardController(createFlashcardInteractor);
+        createFlashcardView.setCreateFlashcardController(controller);
+        return this;
+    }
+*/
 
     public AppBuilder addGetAllDecksView() {
         getAllDecksViewModel = new GetAllDecksViewModel();
