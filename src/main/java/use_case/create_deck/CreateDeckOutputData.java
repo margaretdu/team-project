@@ -1,20 +1,18 @@
 package use_case.create_deck;
 
-import entity.Flashcard;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class CreateDeckOutputData {
 
-    private String name;
-    private ArrayList<Flashcard> flashcards;
+    private final String name;
+    private final List<FlashcardOutputData> flashcards;
 
-    public CreateDeckOutputData(String name,  ArrayList<Flashcard> flashcards) {
+    public CreateDeckOutputData(String name,  List<FlashcardOutputData> flashcards) {
         this.name = name;
         this.flashcards = flashcards;
     }
 
     public String getName() { return name; }
 
-    public  ArrayList<Flashcard> getFlashcards() { return flashcards; }
+    public  List<FlashcardOutputData> getFlashcards() { return flashcards; }
 }
