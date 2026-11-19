@@ -20,8 +20,8 @@ public class GetAllDecksInteractor implements GetAllDecksInputBoundary {
     }
 
     @Override
-    public void execute(GetAllDecksInputData getAllDecksInputData) {
-        if (deckDataAccessObject.isEmpty()) {
+    public void execute() {
+        if (deckDataAccessObject.noAvailableDecks()) {
             getAllDecksPresenter.prepareEmptyView("No Flashcard Decks have been added");
         }
         else {
@@ -37,8 +37,5 @@ public class GetAllDecksInteractor implements GetAllDecksInputBoundary {
             getAllDecksPresenter.prepareSuccessView(getAllDecksOutputData);
         }
     }
-
-    @Override
-    public void switchToDeckView() { getAllDecksPresenter.switchToDeckView(); }
 }
 

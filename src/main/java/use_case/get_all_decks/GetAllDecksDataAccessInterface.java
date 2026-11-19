@@ -5,7 +5,7 @@ import entity.Deck;
 import java.util.List;
 
 /**
- * DAO interface fo
+ * DAO interface for the GetAllDecks Use Case.
  */
 public interface GetAllDecksDataAccessInterface {
 
@@ -18,5 +18,5 @@ public interface GetAllDecksDataAccessInterface {
      * Checks if there are any available flashcard decks.
      * @return true if there are available flashcard decks and false otherwise.
      */
-    boolean isEmpty();
+    boolean noAvailableDecks();
 }

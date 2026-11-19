@@ -26,7 +26,7 @@ public class GetAllDecksInteractorTest {
         }
 
         @Override
-        public boolean isEmpty() { return decks.isEmpty(); }
+        public boolean noAvailableDecks() { return decks.isEmpty(); }
     }
 
     @Test
@@ -44,7 +44,6 @@ public class GetAllDecksInteractorTest {
         list.add(deck1);
         list.add(deck2);
 
-        GetAllDecksInputData inputData = new GetAllDecksInputData();
         GetAllDecksDataAccessInterface decks = new TestMockDeckDataAccessObject(list);
 
         GetAllDecksOutputBoundary successPresenter = new GetAllDecksOutputBoundary() {
@@ -61,19 +60,15 @@ public class GetAllDecksInteractorTest {
             public void prepareEmptyView(String error) {
                 fail("Use case failure is unexpected.");
             }
-
-            @Override
-            public void switchToDeckView() { /* not implemented yet */ }
         };
 
         GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, successPresenter);
-        interactor.execute(inputData);
+        interactor.execute();
     }
 
 
     @Test
     void noAvailableDecksTest() {
-        GetAllDecksInputData inputData = new GetAllDecksInputData();
         GetAllDecksDataAccessInterface decks = new TestMockDeckDataAccessObject(new ArrayList<>());
 
         GetAllDecksOutputBoundary emptyPresenter = new GetAllDecksOutputBoundary() {
@@ -86,12 +81,9 @@ public class GetAllDecksInteractorTest {
             public void prepareEmptyView(String error) {
                 assertNotNull(error);
             }
-
-            @Override
-            public void switchToDeckView() { /* not implemented yet */ }
         };
 
         GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, emptyPresenter);
-        interactor.execute(inputData);
+        interactor.execute();
     }
 }

@@ -7,8 +7,11 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
         appBuilder.setGUI();
         JFrame application = appBuilder
-                .addGetAllDecksView()
+                .addHomescreenView()
+                .addDeckView()
+                .addStudyView()
                 .addGetAllDecksUseCase()
+                .addGetDeckUseCase()
                 .build();
 
         application.pack();
