@@ -41,6 +41,14 @@ public class StudyView extends JPanel implements StudyViewModelListener {
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
         this.setBackground(AppTheme.BG_COLOR);
 
+        // resize the flashcard text when the window is resized
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateText(studyViewModel.getState().getCurrentCardText());
+            }
+        });
+
         this.add(createToolBar(), BorderLayout.WEST);
         this.add(createFlashcardPanel(), BorderLayout.CENTER);
     }
@@ -90,7 +98,7 @@ public class StudyView extends JPanel implements StudyViewModelListener {
         titlePanel.add(cardCount);
 
         // make flashcard
-        flashcard.setBorder(BorderFactory.createEmptyBorder(24, 36, 36, 36));
+        flashcard.setBorder(BorderFactory.createEmptyBorder(24, 36, 24, 36));
         flashcard.setCursor(new Cursor(Cursor.HAND_CURSOR));
         flashcard.setBackground(AppTheme.CARD_COLOR);
 
@@ -104,7 +112,7 @@ public class StudyView extends JPanel implements StudyViewModelListener {
         whichSideLabel.setFont(new Font(AppTheme.FONT_NAME, Font.BOLD, 11));
         whichSideLabel.setForeground(AppTheme.TEXT_PRIMARY);
 
-        flashcardLabel.setFont(new Font(AppTheme.FONT_NAME, Font.PLAIN, AppTheme.FONT_SIZE_TITLE));
+        flashcardLabel.setFont(new Font(AppTheme.FONT_NAME, Font.PLAIN, AppTheme.FONT_SIZE_FLASHCARD));
         flashcardLabel.setForeground(AppTheme.TEXT_PRIMARY);
 
         flashcard.add(flashcardLabel, BorderLayout.CENTER);
@@ -162,10 +170,56 @@ public class StudyView extends JPanel implements StudyViewModelListener {
         currentIndexLabel.setText(state.getProgressText());
 
         flashcardLabel.setFont(new Font(AppTheme.FONT_NAME,
-                state.getIsFlipped() ? Font.PLAIN : Font.BOLD, AppTheme.FONT_SIZE_TITLE));
-        flashcardLabel.setText("<html><div style='text-align: center; line-height: 1.4;'>" +
-                state.getCurrentCardText() + "</div></html>");
+                state.getIsFlipped() ? Font.PLAIN : Font.BOLD, AppTheme.FONT_SIZE_FLASHCARD));
+        updateText(state.getCurrentCardText());
         flashcard.setBackground(state.getIsFlipped() ? AppTheme.SELECTION_BG : AppTheme.CARD_COLOR);
+    }
+
+    // shrinks text size if text is too big for the flashcard panel
+    private void updateText(String text) {
+        int cardWidth = flashcard.getWidth();
+        int cardHeight = flashcard.getHeight();
+        if (cardWidth <= 0 || cardHeight <= 0) return;
+
+        // available space inside flashcard border
+        Insets insets = flashcard.getInsets(); // border
+        int whichSideHeight = whichSideLabel.getPreferredSize().height;
+        int availableWidth = Math.max(60, cardWidth - insets.left - insets.right - 16);
+        int availableHeight = Math.max(60, cardHeight - insets.top - insets.bottom - whichSideHeight - 16);
+        int htmlWrapWidth = (int) (availableWidth * 0.75);
+
+        String cardText = text;
+        int fontSize = AppTheme.FONT_SIZE_FLASHCARD;
+        int minFontSize = 10;
+
+        while (fontSize >= minFontSize) {
+            String html = String.format(
+                    "<html><div width='%d' style='text-align: center; font-family: %s; font-size: %dpt; color: %s;'>%s</div></html>",
+                    htmlWrapWidth, AppTheme.FONT_NAME, fontSize, toHexColor(AppTheme.TEXT_PRIMARY), escapeHtml(cardText)
+            );
+            flashcardLabel.setText(html);
+
+            Dimension pref = flashcardLabel.getPreferredSize();
+            if (pref.height <= availableHeight && pref.width <= availableWidth) {
+                break;
+            }
+            fontSize -= 1;
+        }
+        revalidate();
+        repaint();
+    }
+
+    // prevents characters like '<' or '&' from breaking HTML
+    private String escapeHtml(String text) {
+        return text.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\n", "<br>");
+    }
+
+    // java Color to hex color
+    private String toHexColor(Color c) {
+        return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
     }
 
     public void setGetDeckController(GetDeckController getDeckController) {
