@@ -60,6 +60,8 @@ public class StudyState {
     public String getWhichSideLabel() { return isFlipped ? "ANSWER" : "QUESTION"; }
 
     public String getCurrentCardText() {
+        if (flashcards == null || flashcards.isEmpty()) { return ""; }
+
         Map<String, String> current = flashcards.get(currentIndex);
         Map.Entry<String, String> entry = current.entrySet().iterator().next();
         return isFlipped ? entry.getValue() : entry.getKey();

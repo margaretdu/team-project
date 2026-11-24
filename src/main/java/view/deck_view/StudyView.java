@@ -41,14 +41,6 @@ public class StudyView extends JPanel implements StudyViewModelListener {
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
         this.setBackground(AppTheme.BG_COLOR);
 
-        // resize the flashcard text when the window is resized
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                updateText(studyViewModel.getState().getCurrentCardText());
-            }
-        });
-
         this.add(createToolBar(), BorderLayout.WEST);
         this.add(createFlashcardPanel(), BorderLayout.CENTER);
     }
@@ -106,6 +98,14 @@ public class StudyView extends JPanel implements StudyViewModelListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 studyViewModel.flipCard();
+            }
+        });
+
+        // resize the flashcard text when the window is resized
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateText(studyViewModel.getState().getCurrentCardText());
             }
         });
 

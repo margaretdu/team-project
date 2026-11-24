@@ -10,6 +10,8 @@ import view.FormattedButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
@@ -55,7 +57,8 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
         // buttons
         JButton home = new FormattedButton();
         home.addActionListener(evt -> getAllDecksController.execute());
-        study.addActionListener(evt -> getDeckController.switchToStudyView());
+        study.addActionListener(evt -> getDeckController.execute(
+                getDeckViewModel.getState().getDeckName(), "studyView"));
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
