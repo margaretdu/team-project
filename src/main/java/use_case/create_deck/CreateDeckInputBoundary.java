@@ -10,4 +10,5 @@ public interface CreateDeckInputBoundary {
      * Executes the switch to homescreen use case.
      */
     void switchToHomescreenView();
+    void switchToCreateDeckView();
 }

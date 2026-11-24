@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.create_deck.CreateDeckController;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_all_decks.GetAllDecksState;
 import interface_adapter.get_all_decks.GetAllDecksViewModel;
@@ -28,10 +29,12 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
     // buttons
     private final JButton viewButton;
     private final JButton studyButton;
+    private final JButton createDeckButton;
 
     // controllers
     private GetDeckController getDeckController = null;
     private GetAllDecksController getAllDecksController = null;
+    private CreateDeckController createDeckController = null;
 
     // Class used for swing JList
     static class SwingDeck {
@@ -90,6 +93,11 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
         studyButton.addActionListener(evt ->
                 getDeckController.execute(deckList.getSelectedValue().getName(), "studyView"));
 
+        // create deck button
+        createDeckButton = new FormattedButton("Create New Deck");
+        createDeckButton.setEnabled(true); // Enabled by default
+        createDeckButton.addActionListener(evt ->
+                createDeckController.switchToCreateDeckView());
 
         // enable viewButton and studyButton when a Deck is selected
         deckList.addListSelectionListener(e -> {
@@ -105,6 +113,9 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
         footerPanel.add(viewButton);
         footerPanel.add(Box.createHorizontalStrut(10));
         footerPanel.add(studyButton);
+        footerPanel.add(Box.createHorizontalStrut(10));
+        footerPanel.add(createDeckButton);
+
 
         centerLayout.show(centerPanel, "LIST");
 
@@ -193,6 +204,10 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
 
     public void setGetDeckController(GetDeckController getDeckController) {
         this.getDeckController = getDeckController;
+    }
+
+    public void setCreateDeckController(CreateDeckController createDeckController) {
+        this.createDeckController = createDeckController;
     }
 
     public void initialExecuteGetAllDecks() {

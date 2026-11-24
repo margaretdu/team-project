@@ -1,6 +1,7 @@
 package interface_adapter.create_deck;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.get_all_decks.GetAllDecksViewModel;
 import use_case.create_deck.CreateDeckOutputBoundary;
 import use_case.create_deck.CreateDeckOutputData;
 
@@ -30,6 +31,12 @@ public class CreateDeckPresenter implements CreateDeckOutputBoundary {
 
     @Override
     public void switchToHomescreenView() {
+        viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
+        viewManagerModel.notifyViewChanged();
+    }
+
+    @Override
+    public void switchToCreateDeckView() {
         viewManagerModel.setState(CreateDeckViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
     }

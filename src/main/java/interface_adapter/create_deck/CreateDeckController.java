@@ -25,4 +25,5 @@ public class CreateDeckController {
      * Executes switch to Homescreen Use Case
      */
     public void switchToHomescreenView() { deckCreateDeckUseCaseInteractor.switchToHomescreenView(); }
+    public void switchToCreateDeckView() { deckCreateDeckUseCaseInteractor.switchToCreateDeckView(); }
 }
