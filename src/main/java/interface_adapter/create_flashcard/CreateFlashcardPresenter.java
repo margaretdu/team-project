@@ -5,9 +5,6 @@ import interface_adapter.get_all_decks.GetAllDecksViewModel;
 import use_case.create_flashcard.CreateFlashcardOutputBoundary;
 import use_case.create_flashcard.CreateFlashcardOutputData;
 
-/**
- * Presenter for the Create Flashcard Use Case.
- */
 public class CreateFlashcardPresenter implements CreateFlashcardOutputBoundary {
 
     private final CreateFlashcardViewModel createFlashcardViewModel;
@@ -39,7 +36,7 @@ public class CreateFlashcardPresenter implements CreateFlashcardOutputBoundary {
     }
 
     @Override
-    public void switchToCreateFlashcardView(String name){
+    public void switchToCreateFlashcardView(String name) {
         final CreateFlashcardState createFlashcardState = new CreateFlashcardState();
         createFlashcardState.setDeckName(name);
         createFlashcardViewModel.setState(createFlashcardState);

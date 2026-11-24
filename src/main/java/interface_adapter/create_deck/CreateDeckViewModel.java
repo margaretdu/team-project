@@ -6,10 +6,7 @@ import java.util.List;
 public class CreateDeckViewModel {
 
     public static final String TITLE_LABEL = "Create Deck";
-    public static final String NAME_LABEL = "Type name";
-
-    public static final String CREATEDECK_BUTTON_LABEL = "Create deck";
-    public static final String CANCEL_BUTTON_LABEL = "Cancel";
+    public static final String NAME_LABEL = "Deck Name";
 
     public static final String TO_HOMESCREEN_BUTTON_LABEL = "Go to Homescreen";
 
