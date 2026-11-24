@@ -10,6 +10,10 @@ public class DefineHighlightedController {
         this.defineHighlightedUseCaseInteractor = useCaseInteractor;
     }
 
+    /**
+     * Executes DefineHighlighted use case interactor.
+     * @param word
+     */
     public void execute(String word) {
         DefineHighlightedInputData defineHighlightedInputData = new DefineHighlightedInputData(word);
         defineHighlightedUseCaseInteractor.execute(defineHighlightedInputData);
