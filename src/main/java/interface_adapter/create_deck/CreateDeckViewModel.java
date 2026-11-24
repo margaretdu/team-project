@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CreateDeckViewModel {
 
-    public static final String TITLE_LABEL = "Create Deck View";
+    public static final String TITLE_LABEL = "Create Deck";
     public static final String NAME_LABEL = "Type name";
 
     public static final String CREATEDECK_BUTTON_LABEL = "Create deck";

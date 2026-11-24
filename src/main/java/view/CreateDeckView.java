@@ -5,6 +5,7 @@ import interface_adapter.create_deck.CreateDeckController;
 import interface_adapter.create_deck.CreateDeckState;
 import interface_adapter.create_deck.CreateDeckViewModel;
 import interface_adapter.create_deck.CreateDeckViewModelListener;
+import interface_adapter.get_all_decks.GetAllDecksController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -18,6 +19,7 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
     private final CreateDeckViewModel createDeckViewModel;
     private final JTextField nameInputField = new JTextField(15);
     private CreateDeckController createDeckController = null;
+    private GetAllDecksController getAllDecksController = null;
 
     private final JButton createDeck;
     private final JButton cancel;
@@ -50,6 +52,7 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
                             createDeckController.execute(
                                     currentState.getName()
                             );
+                            getAllDecksController.execute();
                         }
                     }
                 }
@@ -58,12 +61,18 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
         toHomescreen.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        createDeckController.switchToHomescreenView();
+//                        getAllDecksController.execute();
                     }
                 }
         );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        createDeckController.switchToHomescreenView();
+                    }
+                }
+        );
 
         addNameListener();
 
@@ -112,5 +121,9 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
 
     public void setCreateDeckController(CreateDeckController controller) {
         this.createDeckController = controller;
+    }
+
+    public void setGetAllDecksController(GetAllDecksController controller) {
+        this.getAllDecksController = controller;
     }
 }

@@ -21,4 +21,5 @@ public interface CreateFlashcardOutputBoundary {
      */
     void switchToHomescreenView();
 
+    void switchToCreateFlashcardView(String name);
 }

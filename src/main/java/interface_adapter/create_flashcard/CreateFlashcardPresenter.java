@@ -1,6 +1,7 @@
 package interface_adapter.create_flashcard;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.get_all_decks.GetAllDecksViewModel;
 import use_case.create_flashcard.CreateFlashcardOutputBoundary;
 import use_case.create_flashcard.CreateFlashcardOutputData;
 
@@ -33,6 +34,17 @@ public class CreateFlashcardPresenter implements CreateFlashcardOutputBoundary {
 
     @Override
     public void switchToHomescreenView() {
+        viewManagerModel.setState(GetAllDecksViewModel.VIEW_NAME);
+        viewManagerModel.notifyViewChanged();
+    }
+
+    @Override
+    public void switchToCreateFlashcardView(String name){
+        final CreateFlashcardState createFlashcardState = new CreateFlashcardState();
+        createFlashcardState.setDeckName(name);
+        createFlashcardViewModel.setState(createFlashcardState);
+        createFlashcardViewModel.notifyStateChanged();
+
         viewManagerModel.setState(CreateFlashcardViewModel.VIEW_NAME);
         viewManagerModel.notifyViewChanged();
     }

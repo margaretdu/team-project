@@ -14,9 +14,23 @@ import java.util.List;
  */
 public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface, GetDeckDataAccessInterface {
 
-    private List<Deck> decks;
+    private final List<Deck> decks = new ArrayList<>();
 
-    public MockDeckDataAccessObject(DeckFactory deckFactory) {}
+    public MockDeckDataAccessObject(DeckFactory deckFactory) {
+//        decks.add(mockDataMakeDeck("CSC207H1"));
+//
+//        Deck deck = new Deck("MAT257Y1");
+//        mockDataAddFlashcardsShort(deck);
+//        decks.add(deck);
+//        decks.add(mockDataMakeDeck("CSC148H1"));
+//        decks.add(mockDataMakeDeck("CSC236H1"));
+//        decks.add(mockDataMakeDeck("CSC240H1"));
+//        decks.add(mockDataMakeDeck("CSC258H1"));
+//        decks.add(mockDataMakeDeck("MAT267H1"));
+//        decks.add(mockDataMakeDeck("CSC209H1"));
+//        decks.add(mockDataMakeDeck("MAT237Y1"));
+//        decks.add(new Deck("ESS250H1"));
+    }
 
     private void mockDataAddFlashcardsShort(Deck deck) {
         deck.addFlashcard(new Flashcard("question 1", "answer 1"));
@@ -69,27 +83,11 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
     }
 
     public List<Deck> getAllDecks() {
-        decks = new ArrayList<>();
-
-        decks.add(mockDataMakeDeck("CSC207H1"));
-
-        Deck deck = new Deck("MAT257Y1");
-        mockDataAddFlashcardsShort(deck);
-        decks.add(deck);
-        decks.add(mockDataMakeDeck("CSC148H1"));
-        decks.add(mockDataMakeDeck("CSC236H1"));
-        decks.add(mockDataMakeDeck("CSC240H1"));
-        decks.add(mockDataMakeDeck("CSC258H1"));
-        decks.add(mockDataMakeDeck("MAT267H1"));
-        decks.add(mockDataMakeDeck("CSC209H1"));
-        decks.add(mockDataMakeDeck("MAT237Y1"));
-        decks.add(new Deck("ESS250H1"));
-
         return decks;
     }
 
     public boolean noAvailableDecks() {
-        return false;
+        return decks.isEmpty();
     }
 
     @Override
@@ -105,6 +103,18 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
             }
         }
         return null;
+    }
+
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    public void addFlashcard(String name, Flashcard flashcard) {
+        for (Deck deck: decks) {
+            if (deck.getName().equals(name)) {
+                deck.addFlashcard(flashcard);
+            }
+        }
     }
 }
 

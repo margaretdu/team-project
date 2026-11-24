@@ -15,5 +15,5 @@ public interface CreateFlashcardFlashcardDataAccessInterface {
      * Saves the flashcard
      * @param flashcard the flashcard to save
      */
-    void save(Flashcard flashcard);
+    void save(String name, Flashcard flashcard);
 }

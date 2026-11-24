@@ -13,4 +13,6 @@ public interface CreateFlashcardInputBoundary {
      * Executes the switch to homescreen use case.
      */
     void switchToHomescreenView();
+
+    void switchToCreateFlashcardView(String name);
 }

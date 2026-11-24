@@ -33,7 +33,7 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
         else {
             Flashcard flashcard = flashcardFactory.create(createFlashcardInputData.getQuestion(),
                                                           createFlashcardInputData.getAnswer());
-            flashcardDataAccessObject.save(flashcard);
+            flashcardDataAccessObject.save(createFlashcardInputData.getDeckName(), flashcard);
 
             final CreateFlashcardOutputData createFlashcardOutputData = new CreateFlashcardOutputData(flashcard.getQuestion(), flashcard.getAnswer());
             flashcardPresenter.prepareSuccessView(createFlashcardOutputData);
@@ -45,4 +45,8 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
         flashcardPresenter.switchToHomescreenView();
     }
 
+    @Override
+    public void switchToCreateFlashcardView(String name) {
+        flashcardPresenter.switchToCreateFlashcardView(name);
+    }
 }

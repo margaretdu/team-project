@@ -10,8 +10,12 @@ public class Main {
                 .addHomescreenView()
                 .addDeckView()
                 .addStudyView()
+                .addCreateDeckView()
+                .addCreateFlashcardView()
                 .addGetAllDecksUseCase()
                 .addGetDeckUseCase()
+                .addCreateDeckUseCase()
+                .addCreateFlashcardUseCase()
                 .build();
 
         application.pack();

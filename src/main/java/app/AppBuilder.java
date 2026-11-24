@@ -1,8 +1,16 @@
 package app;
 
 import data_access.MockDeckDataAccessObject;
+import data_access.MockFlashcardDataAccessObject;
 import entity.DeckFactory;
+import entity.FlashcardFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.create_deck.CreateDeckController;
+import interface_adapter.create_deck.CreateDeckPresenter;
+import interface_adapter.create_deck.CreateDeckViewModel;
+import interface_adapter.create_flashcard.CreateFlashcardController;
+import interface_adapter.create_flashcard.CreateFlashcardPresenter;
+import interface_adapter.create_flashcard.CreateFlashcardViewModel;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_all_decks.GetAllDecksPresenter;
 import interface_adapter.get_all_decks.GetAllDecksViewModel;
@@ -10,6 +18,12 @@ import interface_adapter.get_deck.GetDeckController;
 import interface_adapter.get_deck.GetDeckPresenter;
 import interface_adapter.get_deck.deck_view.GetDeckViewModel;
 import interface_adapter.get_deck.study_view.StudyViewModel;
+import use_case.create_deck.CreateDeckInputBoundary;
+import use_case.create_deck.CreateDeckInteractor;
+import use_case.create_deck.CreateDeckOutputBoundary;
+import use_case.create_flashcard.CreateFlashcardInputBoundary;
+import use_case.create_flashcard.CreateFlashcardInteractor;
+import use_case.create_flashcard.CreateFlashcardOutputBoundary;
 import use_case.get_all_decks.GetAllDecksInputBoundary;
 import use_case.get_all_decks.GetAllDecksInteractor;
 import use_case.get_all_decks.GetAllDecksOutputBoundary;
@@ -37,6 +51,7 @@ public class AppBuilder {
 
     // DAO version using local file storage
     final MockDeckDataAccessObject deckDataAccessObject = new MockDeckDataAccessObject(deckFactory);
+    final MockFlashcardDataAccessObject flashcardDataAccessObject = new MockFlashcardDataAccessObject(deckDataAccessObject);
 
     private HomescreenView homescreenView;
     private GetAllDecksViewModel getAllDecksViewModel;
@@ -46,6 +61,12 @@ public class AppBuilder {
 
     private StudyView studyView;
     private StudyViewModel studyViewModel;
+
+    private CreateFlashcardView createFlashcardView;
+    private CreateFlashcardViewModel createFlashcardViewModel;
+
+    private CreateDeckView createDeckView;
+    private CreateDeckViewModel createDeckViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -72,6 +93,20 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addCreateDeckView() {
+        createDeckViewModel = new CreateDeckViewModel();
+        createDeckView = new CreateDeckView(createDeckViewModel);
+        cardPanel.add(createDeckView, CreateDeckViewModel.VIEW_NAME);
+        return this;
+    }
+
+    public AppBuilder addCreateFlashcardView(){
+        createFlashcardViewModel = new CreateFlashcardViewModel();
+        createFlashcardView = new CreateFlashcardView(createFlashcardViewModel);
+        cardPanel.add(createFlashcardView, CreateFlashcardViewModel.VIEW_NAME);
+        return this;
+    }
+
     public AppBuilder addGetAllDecksUseCase() {
         final GetAllDecksOutputBoundary getAllDecksOutputBoundary = new GetAllDecksPresenter(viewManagerModel,
                 getAllDecksViewModel);
@@ -82,6 +117,7 @@ public class AppBuilder {
         homescreenView.setGetAllDecksController(controller);
         deckView.setGetAllDecksController(controller);
         studyView.setGetAllDecksController(controller);
+        createDeckView.setGetAllDecksController(controller);
         return this;
     }
 
@@ -94,8 +130,33 @@ public class AppBuilder {
 
         GetDeckController controller = new GetDeckController(getDeckInteractor);
         deckView.setGetDeckController(controller);
-        studyView.setGetDeckController(controller);
         homescreenView.setGetDeckController(controller);
+        createFlashcardView.setGetDeckController(controller);
+        return this;
+    }
+
+    public AppBuilder addCreateFlashcardUseCase() {
+        final CreateFlashcardOutputBoundary createFlashcardOutputBoundary = new CreateFlashcardPresenter(viewManagerModel,
+                createFlashcardViewModel);
+        FlashcardFactory flashcardFactory = new FlashcardFactory();
+        final CreateFlashcardInputBoundary createFlashcardInteractor = new CreateFlashcardInteractor(
+                flashcardDataAccessObject, createFlashcardOutputBoundary, flashcardFactory);
+
+        CreateFlashcardController controller = new CreateFlashcardController(createFlashcardInteractor);
+        createFlashcardView.setCreateFlashcardController(controller);
+        deckView.setCreateFlashcardController(controller);
+        return this;
+    }
+
+    public AppBuilder addCreateDeckUseCase() {
+        final CreateDeckOutputBoundary createDeckOutputBoundary = new CreateDeckPresenter(viewManagerModel,
+                createDeckViewModel);
+        final CreateDeckInputBoundary createDeckInteractor = new CreateDeckInteractor(
+                flashcardDataAccessObject, createDeckOutputBoundary, new DeckFactory());
+
+        CreateDeckController controller = new CreateDeckController(createDeckInteractor);
+        createDeckView.setCreateDeckController(controller);
+        homescreenView.setCreateDeckController(controller);
         return this;
     }
 

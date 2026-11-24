@@ -4,6 +4,7 @@ import interface_adapter.create_flashcard.CreateFlashcardController;
 import interface_adapter.create_flashcard.CreateFlashcardState;
 import interface_adapter.create_flashcard.CreateFlashcardViewModel;
 import interface_adapter.create_flashcard.CreateFlashcardViewModelListener;
+import interface_adapter.get_deck.GetDeckController;
 
 import javax.swing.*;
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
     private final JTextField questionInputField = new JTextField(15);
     private final JTextField answerInputField = new JTextField(15);
     private CreateFlashcardController createFlashcardController = null;
+    private GetDeckController getDeckController = null;
 
     private final JButton createFlashcard;
     private final JButton cancel;
@@ -55,8 +57,10 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
 
                             createFlashcardController.execute(
                                     currentState.getQuestion(),
-                                    currentState.getAnswer()
+                                    currentState.getAnswer(),
+                                    currentState.getDeckName()
                             );
+                            getDeckController.execute(currentState.getDeckName(), "deckView");
                         }
                     }
                 }
@@ -146,5 +150,9 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
 
     public void setCreateFlashcardController(CreateFlashcardController controller) {
         this.createFlashcardController = controller;
+    }
+
+    public void setGetDeckController(GetDeckController controller) {
+        this.getDeckController = controller;
     }
 }

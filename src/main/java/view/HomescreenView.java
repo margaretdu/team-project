@@ -94,7 +94,7 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
                 getDeckController.execute(deckList.getSelectedValue().getName(), "studyView"));
 
         // create deck button
-        createDeckButton = new FormattedButton("Create New Deck");
+        createDeckButton = new FormattedButton("Create Deck");
         createDeckButton.setEnabled(true); // Enabled by default
         createDeckButton.addActionListener(evt ->
                 createDeckController.switchToCreateDeckView());
@@ -190,6 +190,7 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
 
     private void setFields(GetAllDecksState state) {
         Map<String, Integer> map = state.getDecks();
+        deckListModel.clear();
 
         if (map != null) {
             for (Map.Entry<String, Integer> deck : map.entrySet()) {
