@@ -74,7 +74,7 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
                 "But, in a larger sense, we can not dedicate -- we can not consecrate -- we can not " +
                 "hallow -- this ground. The brave men, living and dead, who struggled here, have " +
                 "consecrated it, far above our poor power to add or detract.";
-        deck.addFlashcard(new Flashcard("the Gettysburg Adresss", gettysburgAddress));
+        deck.addFlashcard(new Flashcard("the Gettysburg Address", gettysburgAddress));
     }
 
     private Deck mockDataMakeDeck(String name) {
