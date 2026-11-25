@@ -142,7 +142,7 @@ Define word (Dictionary API)
 | Team Member | MVP User Story/Cases |
 |-------------|--------------|
 | Maria | [User Story 1:](#user-story-1) Part a) Create and Delete |
-| Janica | [User Story 2](#user-story-2): View and Study flashcards and decks <br/> + get word from flashcard on right-click in GUI for [Use Case 14](#use-case-14)|
+| Janica | [User Story 2](#user-story-2): View and Study flashcards and decks <br/> + get word from flashcard on right-click in GUI for [User Story 3](#user-story-3)|
 | Margaret | [User Story 3](#user-story-3): Dictionary API, [User Story 1](#user-story-1): Part b) Edit |
 | Roy | [User Story 4](#user-story-4): Data persistence: Import and Export |
 ---
