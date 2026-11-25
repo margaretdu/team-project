@@ -130,6 +130,7 @@ public class AppBuilder {
 
         GetDeckController controller = new GetDeckController(getDeckInteractor);
         deckView.setGetDeckController(controller);
+        studyView.setGetDeckController(controller);
         homescreenView.setGetDeckController(controller);
         createFlashcardView.setGetDeckController(controller);
         return this;
