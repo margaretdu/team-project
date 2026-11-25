@@ -10,8 +10,6 @@ import view.FormattedButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
