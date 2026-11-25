@@ -28,9 +28,9 @@
 ## Project Description
 ### Domain: Education
 A flashcard application that allows users to create, manage and organize flashcard decks, with questions and answers. 
-These flashcards can be used in a study/quiz mode to look at the questions and double check answers. The flashcard decks
-can be imported and exported through CSV files to support sharing and external editing. Flashcard decks can be searched 
-for to find which ones are needed.
+These flashcards can be used in a study mode to look at the questions and double check answers. The flashcard decks
+can be imported and exported to support sharing and external editing. When viewing a deck users can define unfamiliar
+words to aid in easy understanding and more efficient studying.
 
 ---
 ## User Stories
@@ -38,16 +38,16 @@ for to find which ones are needed.
 As a user, I want to create, edit delete, and update flashcard decks and flashcards so that I can keep my flashcards organized by class, course, or personal preference.
 - Corresponding Use Cases: 
   - Part a)
-    - Create: [Use Case 1](#use-case-1), [Use Case 5](#use-case-5)
-    - Delete: [Use Case 3](#use-case-3), [Use Case 7](#use-case-7)
+    - Create: [Use Case 1](#use-case-1), [Use Case 4](#use-case-4)
+    - Delete: [Use Case 3](#use-case-3), [Use Case 6](#use-case-6)
   - Part b)
-    - Edit: [Use Case 2](#use-case-2), [Use Case 6](#use-case-6)
+    - Edit: [Use Case 2](#use-case-2), [Use Case 5](#use-case-5)
 ### User Story 2
 As a user, I want to view and study flashcard decks in list and study mode so that I can review and test my knowledge.
 - Corresponding Use Cases: [Use Case 8](#use-case-8-view-all-flashcard-decks), [Use Case 9](#use-case-9-view-and-study-flashcard-deck)
 ### User Story 3
 As a user, I want to view the definition of an unfamiliar word in a flashcard in a deck so that I can quickly understand the term to aid in my studying.
-- Corresponding Use Cases: [Use Case 8](#use-case-8), [Use Case 9](#use-case-9)
+- Corresponding Use Cases: [Use Case 14](#use-case-14)
 ### User Story 4
 As a user, I want to import and export flashcards so that I can send flashcards to other people or create cards using external editors.
 - Corresponding Use Cases: [Use Case 12](#use-case-12), [Use Case 13](#use-case-13)
@@ -110,10 +110,12 @@ Delete Flashcard
 3. The user can view the name of the deck and how many cards are in the deck.
 
 User selected Study:
+
 4. The user can view the question on a flashcard in the deck and flip the flashcard to see the answer.
 5. The user can move between cards in the deck and see their progress of what number card they are on.
 
 User selected View:
+
 4. The user can see all the flashcards in the deck each with their question and answer.
 5. The user can select a card to keep track of which one they are on.
 
@@ -131,13 +133,16 @@ Search Decks
 Import Flashcards from CSV
 ### Use Case 13
 Export Flashcards to CSV
+### Use Case 14
+Define word (Dictionary API)
+
 
 ---
 ## Minimal Viable Product (MVP)
 | Team Member | MVP User Story/Cases |
 |-------------|--------------|
 | Maria | [User Story 1:](#user-story-1) Part a) Create and Delete |
-| Janica | [User Story 2](#user-story-2): View and Study flashcards and decks |
+| Janica | [User Story 2](#user-story-2): View and Study flashcards and decks <br/> + get word from flashcard on right-click in GUI for [Use Case 14](#use-case-14)|
 | Margaret | [User Story 3](#user-story-3): Dictionary API, [User Story 1](#user-story-1): Part b) Edit |
 | Roy | [User Story 4](#user-story-4): Data persistence: Import and Export |
 ---
