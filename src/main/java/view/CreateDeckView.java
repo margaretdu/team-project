@@ -5,8 +5,10 @@ import interface_adapter.create_deck.CreateDeckController;
 import interface_adapter.create_deck.CreateDeckState;
 import interface_adapter.create_deck.CreateDeckViewModel;
 import interface_adapter.create_deck.CreateDeckViewModelListener;
+import interface_adapter.get_all_decks.GetAllDecksController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -18,28 +20,34 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
     private final CreateDeckViewModel createDeckViewModel;
     private final JTextField nameInputField = new JTextField(15);
     private CreateDeckController createDeckController = null;
+    private GetAllDecksController getAllDecksController = null;
 
-    private final JButton createDeck;
-    private final JButton cancel;
-    private final JButton toHomescreen;
 
     public CreateDeckView(CreateDeckViewModel createDeckViewModel) {
+        this.setLayout(new BorderLayout(14, 14));
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
+        this.setBackground(AppTheme.BG_COLOR);
+
         this.createDeckViewModel = createDeckViewModel;
         createDeckViewModel.addListener(this);
 
+        // title panel
         final JLabel title = new JLabel(CreateDeckViewModel.TITLE_LABEL);
+        title.setFont(new Font(AppTheme.FONT_NAME, Font.BOLD, AppTheme.FONT_SIZE_TITLE));
+        title.setForeground(AppTheme.TEXT_PRIMARY);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-
+        // name label
+        JLabel nameStuff = new JLabel(CreateDeckViewModel.NAME_LABEL);
+        nameStuff.setFont(new Font(AppTheme.FONT_NAME, Font.PLAIN, AppTheme.FONT_SIZE));
         final LabelTextPanel nameText = new LabelTextPanel(
-                new JLabel(CreateDeckViewModel.NAME_LABEL), nameInputField);
+                nameStuff, nameInputField);
+
 
         final JPanel buttons = new JPanel();
-        createDeck = new JButton(CreateDeckViewModel.CREATEDECK_BUTTON_LABEL);
+        JButton createDeck = new FormattedButton("Create Deck");
         buttons.add(createDeck);
-        cancel = new JButton(CreateDeckViewModel.CANCEL_BUTTON_LABEL);
+        JButton cancel = new FormattedButton("Cancel");
         buttons.add(cancel);
-        toHomescreen = new JButton(CreateDeckViewModel.TO_HOMESCREEN_BUTTON_LABEL);
-        buttons.add(toHomescreen);
 
         createDeck.addActionListener(
                 new ActionListener() {
@@ -50,12 +58,13 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
                             createDeckController.execute(
                                     currentState.getName()
                             );
+                            getAllDecksController.execute();
                         }
                     }
                 }
         );
 
-        toHomescreen.addActionListener(
+        cancel.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         createDeckController.switchToHomescreenView();
@@ -63,13 +72,12 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
                 }
         );
 
-        cancel.addActionListener(this);
-
         addNameListener();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(Box.createVerticalStrut(30));
         this.add(nameText);
         this.add(buttons);
     }
@@ -112,5 +120,9 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
 
     public void setCreateDeckController(CreateDeckController controller) {
         this.createDeckController = controller;
+    }
+
+    public void setGetAllDecksController(GetAllDecksController controller) {
+        this.getAllDecksController = controller;
     }
 }

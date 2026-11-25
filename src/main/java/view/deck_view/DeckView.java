@@ -1,5 +1,6 @@
 package view.deck_view;
 
+import interface_adapter.create_flashcard.CreateFlashcardController;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_deck.GetDeckController;
 import interface_adapter.get_deck.deck_view.GetDeckState;
@@ -33,6 +34,7 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
 
     private GetDeckController getDeckController = null;
     private GetAllDecksController getAllDecksController = null;
+    private CreateFlashcardController createFlashcardController = null;
 
     public DeckView(GetDeckViewModel getDeckViewModel) {
         this.getDeckViewModel = getDeckViewModel;
@@ -57,12 +59,17 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
         home.addActionListener(evt -> getAllDecksController.execute());
         study.addActionListener(evt -> getDeckController.switchToStudyView());
 
+        JButton add = new FormattedButton("Add");
+        add.addActionListener(evt -> createFlashcardController.switchToCreateFlashcardView(deckName.getText()));
+
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         buttons.setOpaque(false);
         buttons.add(home);
         buttons.add(Box.createVerticalStrut(10));
         buttons.add(study);
+        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(add);
 
         // toolBar
         JPanel toolBar = new JPanel(new BorderLayout());
@@ -195,6 +202,10 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
 
     public void setGetAllDecksController(GetAllDecksController getAllDecksController) {
         this.getAllDecksController = getAllDecksController;
+    }
+
+    public void setCreateFlashcardController(CreateFlashcardController createFlashcardController) {
+        this.createFlashcardController = createFlashcardController;
     }
 
     private void showDefinePopup(Component invoker, int x, int y, String word) {

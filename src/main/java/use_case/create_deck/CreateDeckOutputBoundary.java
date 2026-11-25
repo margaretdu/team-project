@@ -8,4 +8,6 @@ public interface CreateDeckOutputBoundary {
     void prepareFailView(String errorMessage);
 
     void switchToHomescreenView();
+
+    void switchToCreateDeckView();
 }

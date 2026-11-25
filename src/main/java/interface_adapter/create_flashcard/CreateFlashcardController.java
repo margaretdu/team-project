@@ -19,9 +19,9 @@ public class CreateFlashcardController {
      * @param question the question
      * @param answer the answer
      */
-    public void execute(String question, String answer) {
+    public void execute(String question, String answer, String deckName) {
         final CreateFlashcardInputData createFlashcardInputData = new CreateFlashcardInputData(
-                question, answer);
+                question, answer, deckName);
 
         flashcardCreateFlashcardUseCaseInteractor.execute(createFlashcardInputData);
     }
@@ -30,4 +30,6 @@ public class CreateFlashcardController {
      * Executes switch to Homescreen Use Case
      */
     public void switchToHomescreenView() { flashcardCreateFlashcardUseCaseInteractor.switchToHomescreenView(); }
+
+    public void switchToCreateFlashcardView(String name) { flashcardCreateFlashcardUseCaseInteractor.switchToCreateFlashcardView(name); }
 }

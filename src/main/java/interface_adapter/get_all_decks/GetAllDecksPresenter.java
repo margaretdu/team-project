@@ -21,8 +21,9 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
     @Override
     public void prepareSuccessView(GetAllDecksOutputData response) {
         // On success, update the GetAllDecksViewModel's state
-        final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
+        final GetAllDecksState getAllDecksState = new GetAllDecksState();
         getAllDecksState.setDecks(response.getDecks());
+        getAllDecksViewModel.setState(getAllDecksState);
         this.getAllDecksViewModel.notifyStateChanged();
 
         // switch to the GetAllDecks in view
@@ -32,8 +33,9 @@ public class GetAllDecksPresenter implements GetAllDecksOutputBoundary {
 
     @Override
     public void prepareEmptyView(String error) {
-        final GetAllDecksState getAllDecksState = getAllDecksViewModel.getState();
+        final GetAllDecksState getAllDecksState = new GetAllDecksState();
         getAllDecksState.setGetAllDecksError(error);
+        getAllDecksViewModel.setState(getAllDecksState);
         getAllDecksViewModel.notifyStateChanged();
     }
 }

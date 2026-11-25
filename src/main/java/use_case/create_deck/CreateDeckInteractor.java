@@ -55,5 +55,7 @@ public class CreateDeckInteractor implements CreateDeckInputBoundary {
         deckPresenter.switchToHomescreenView();
     }
 
+    @Override
+    public void switchToCreateDeckView() { deckPresenter.switchToCreateDeckView(); }
 }
 

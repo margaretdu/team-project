@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class CreateFlashcardViewModel {
 
-    public static final String TITLE_LABEL = "Create Flashcard View";
+    public static final String TITLE_LABEL = "Create Flashcard";
     public static final String QUESTION_LABEL = "Type question";
     public static final String ANSWER_LABEL = "Type answer";
 
