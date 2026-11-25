@@ -131,6 +131,10 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
         return null;
     }
 
+    @Override
+    public void deleteDeck(String name) {
+        decks.removeIf(deck -> deck.getName().equals(name));
+    }
     public void addDeck(Deck deck) {
         decks.add(deck);
     }

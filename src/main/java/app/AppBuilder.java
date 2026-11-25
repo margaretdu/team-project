@@ -39,6 +39,12 @@ import interface_adapter.delete_flashcard.DeleteFlashcardViewModel;
 import use_case.delete_flashcard.DeleteFlashcardInputBoundary;
 import use_case.delete_flashcard.DeleteFlashcardInteractor;
 import use_case.delete_flashcard.DeleteFlashcardOutputBoundary;
+import interface_adapter.delete_deck.DeleteDeckController;
+import interface_adapter.delete_deck.DeleteDeckPresenter;
+import interface_adapter.delete_deck.DeleteDeckViewModel;
+import use_case.delete_deck.DeleteDeckInputBoundary;
+import use_case.delete_deck.DeleteDeckInteractor;
+import use_case.delete_deck.DeleteDeckOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,6 +81,8 @@ public class AppBuilder {
     private CreateDeckViewModel createDeckViewModel;
 
     private DeleteFlashcardViewModel deleteFlashcardViewModel;
+
+    private DeleteDeckViewModel deleteDeckViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -184,6 +192,27 @@ public class AppBuilder {
                 new DeleteFlashcardController(deleteFlashcardInteractor);
 
         deckView.setDeleteFlashcardController(controller);
+
+        return this;
+    }
+
+    public AppBuilder addDeleteDeckUseCase() {
+
+        deleteDeckViewModel = new DeleteDeckViewModel();
+
+        final DeleteDeckOutputBoundary deleteDeckOutputBoundary =
+                new DeleteDeckPresenter(deleteDeckViewModel);
+
+        final DeleteDeckInputBoundary deleteDeckInteractor =
+                new DeleteDeckInteractor(
+                        deckDataAccessObject,
+                        deleteDeckOutputBoundary
+                );
+
+        DeleteDeckController controller =
+                new DeleteDeckController(deleteDeckInteractor);
+
+        homescreenView.setDeleteDeckController(controller);
 
         return this;
     }

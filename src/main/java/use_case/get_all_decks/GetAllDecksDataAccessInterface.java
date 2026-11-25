@@ -19,4 +19,10 @@ public interface GetAllDecksDataAccessInterface {
      * @return true if there are available flashcard decks and false otherwise.
      */
     boolean noAvailableDecks();
+
+    /**
+     * Deletes a deck with the given name.
+     * @param name the name of the deck to delete
+     */
+    void deleteDeck(String name);
 }

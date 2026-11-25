@@ -17,6 +17,7 @@ public class Main {
                 .addCreateDeckUseCase()
                 .addCreateFlashcardUseCase()
                 .addDeleteFlashcardUseCase()
+                .addDeleteDeckUseCase()
                 .build();
 
         application.pack();

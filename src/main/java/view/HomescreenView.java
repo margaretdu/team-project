@@ -4,6 +4,7 @@ import interface_adapter.create_deck.CreateDeckController;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_all_decks.GetAllDecksState;
 import interface_adapter.get_all_decks.GetAllDecksViewModel;
+import interface_adapter.delete_deck.DeleteDeckController;
 
 import interface_adapter.get_all_decks.GetAllDecksViewModelListener;
 import interface_adapter.get_deck.GetDeckController;
@@ -30,11 +31,13 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
     private final JButton viewButton;
     private final JButton studyButton;
     private final JButton createDeckButton;
+    private final JButton deleteButton;
 
     // controllers
     private GetDeckController getDeckController = null;
     private GetAllDecksController getAllDecksController = null;
     private CreateDeckController createDeckController = null;
+    private DeleteDeckController deleteDeckController = null;
 
     // Class used for swing JList
     static class SwingDeck {
@@ -99,11 +102,37 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
         createDeckButton.addActionListener(evt ->
                 createDeckController.switchToCreateDeckView());
 
-        // enable viewButton and studyButton when a Deck is selected
+        // delete deck button and its listener
+        deleteButton = new FormattedButton("Delete");
+        deleteButton.setEnabled(false);
+
+        deleteButton.addActionListener(evt -> {
+            SwingDeck selectedDeck = deckList.getSelectedValue();
+
+            if (selectedDeck != null) {
+                int result = JOptionPane.showConfirmDialog(
+                        this,
+                        "Are you sure you want to delete the deck \""
+                                + selectedDeck.getName() + "\"?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (result == JOptionPane.YES_OPTION) {
+                    deleteDeckController.execute(selectedDeck.getName());
+                    getAllDecksController.execute();
+                }
+            }
+        });
+
+        // enable viewButton and studyButton and delete button when a Deck is selected
         deckList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                viewButton.setEnabled(deckList.getSelectedValue() != null);
-                studyButton.setEnabled(deckList.getSelectedValue() != null);
+                boolean selected = deckList.getSelectedValue() != null;
+
+                viewButton.setEnabled(selected);
+                studyButton.setEnabled(selected);
+                deleteButton.setEnabled(selected);
             }
         });
 
@@ -115,6 +144,9 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
         footerPanel.add(studyButton);
         footerPanel.add(Box.createHorizontalStrut(10));
         footerPanel.add(createDeckButton);
+        footerPanel.add(Box.createHorizontalStrut(10));
+        footerPanel.add(deleteButton);
+
 
 
         centerLayout.show(centerPanel, "LIST");
@@ -209,6 +241,10 @@ public class HomescreenView extends JPanel implements GetAllDecksViewModelListen
 
     public void setCreateDeckController(CreateDeckController createDeckController) {
         this.createDeckController = createDeckController;
+    }
+
+    public void setDeleteDeckController(DeleteDeckController deleteDeckController) {
+        this.deleteDeckController = deleteDeckController;
     }
 
     public void initialExecuteGetAllDecks() {
