@@ -57,7 +57,8 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
         // buttons
         JButton home = new FormattedButton();
         home.addActionListener(evt -> getAllDecksController.execute());
-        study.addActionListener(evt -> getDeckController.switchToStudyView());
+        study.addActionListener(evt -> getDeckController.execute(
+                getDeckViewModel.getState().getDeckName(), "studyView"));
 
         JButton add = new FormattedButton("Add");
         add.addActionListener(evt -> createFlashcardController.switchToCreateFlashcardView(deckName.getText()));
