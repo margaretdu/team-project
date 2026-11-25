@@ -56,16 +56,18 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
                             final CreateFlashcardState currentState =
                                     createFlashcardViewModel.getState();
 
+                            currentState.setSuccess(false);
                             createFlashcardController.execute(
                                     currentState.getQuestion(),
                                     currentState.getAnswer(),
                                     currentState.getDeckName()
                             );
-
-                            getDeckController.execute(
-                                    currentState.getDeckName(),
-                                    "deckView"
-                            );
+                            if (currentState.isSuccess()) {
+                                currentState.setSuccess(false);
+                                questionInputField.setText("");
+                                answerInputField.setText("");
+                                getDeckController.execute(currentState.getDeckName(), "deckView");
+                            }
                         }
                     }
                 }
@@ -73,7 +75,6 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
 
 
         cancel.addActionListener(this);
-        //TODO: this needs to go back to the deck we were on without changes
 
         addQuestionListener();
         addAnswerListener();
@@ -139,12 +140,36 @@ public class CreateFlashcardView extends JPanel implements ActionListener, Creat
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) { JOptionPane.showMessageDialog(this, "Cancel not implemented yet");}
+    public void actionPerformed(ActionEvent e) {
+        final CreateFlashcardState currentState =
+                createFlashcardViewModel.getState();
+
+        getDeckController.execute(
+                currentState.getDeckName(),
+                "deckView"
+        );
+    }
 
     @Override
     public void stateChanged() {
-        if (createFlashcardViewModel.getState().getAnswerError() != null) {
-            JOptionPane.showMessageDialog(this, createFlashcardViewModel.getState().getAnswerError());
+        final CreateFlashcardState state = createFlashcardViewModel.getState();
+
+        if (state.getQuestionError() != null) {
+            String error = state.getQuestionError();
+            state.setQuestionError(null);
+
+            JOptionPane.showMessageDialog(
+                    this, error, "Error", JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        if (state.getAnswerError() != null) {
+            String error = state.getAnswerError();
+            state.setAnswerError(null);
+
+            JOptionPane.showMessageDialog(
+                    this, error, "Error", JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 

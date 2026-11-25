@@ -55,10 +55,14 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
                         if (e.getSource().equals(createDeck)) {
                             final CreateDeckState currentState = createDeckViewModel.getState();
 
-                            createDeckController.execute(
-                                    currentState.getName()
-                            );
-                            getAllDecksController.execute();
+                            currentState.setNameError(null);
+
+                            createDeckController.execute(currentState.getName());
+
+                            if (createDeckViewModel.getState().getNameError() == null) {
+                                nameInputField.setText("");
+                                getAllDecksController.execute();
+                            }
                         }
                     }
                 }
@@ -113,8 +117,17 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
 
     @Override
     public void stateChanged() {
-        if (createDeckViewModel.getState().getNameError() != null) {
-            JOptionPane.showMessageDialog(this, createDeckViewModel.getState().getNameError());
+        final CreateDeckState state = createDeckViewModel.getState();
+
+        if (state.getNameError() != null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    state.getNameError(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            state.setNameError(null);
         }
     }
 

@@ -24,10 +24,12 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
         if (flashcardDataAccessObject.existsByQuestion(createFlashcardInputData.getQuestion())) {
             flashcardPresenter.prepareFailView("Flashcard with this question already exists.");
         }
-        else if ("".equals(createFlashcardInputData.getQuestion())) {
+        else if (createFlashcardInputData.getQuestion() == null ||
+                createFlashcardInputData.getQuestion().trim().isEmpty()) {
             flashcardPresenter.prepareFailView("Question cannot be empty");
         }
-        else if ("".equals(createFlashcardInputData.getAnswer())) {
+        else if (createFlashcardInputData.getAnswer() == null ||
+                createFlashcardInputData.getAnswer().trim().isEmpty()) {
             flashcardPresenter.prepareFailView("Answer cannot be empty");
         }
         else {

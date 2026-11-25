@@ -11,21 +11,26 @@ public class CreateFlashcardPresenter implements CreateFlashcardOutputBoundary {
     private final ViewManagerModel viewManagerModel;
 
     public CreateFlashcardPresenter(ViewManagerModel viewManagerModel,
-                                    CreateFlashcardViewModel createFashcardViewModel) {
+                                    CreateFlashcardViewModel createFlashcardViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.createFlashcardViewModel = createFashcardViewModel;
+        this.createFlashcardViewModel = createFlashcardViewModel;
     }
 
     @Override
     public void prepareSuccessView(CreateFlashcardOutputData response) {
-        viewManagerModel.setState(CreateFlashcardViewModel.VIEW_NAME);
-        viewManagerModel.notifyViewChanged();
+        CreateFlashcardState state = createFlashcardViewModel.getState();
+        state.setSuccess(true);
+        createFlashcardViewModel.notifyStateChanged();
     }
 
     @Override
     public void prepareFailView(String error) {
         final CreateFlashcardState createFlashcardState = createFlashcardViewModel.getState();
-        createFlashcardState.setQuestionError(error);
+        if (error.equals("Answer cannot be empty")) {
+            createFlashcardState.setAnswerError(error);
+        } else {
+            createFlashcardState.setQuestionError(error);
+        }
         createFlashcardViewModel.notifyStateChanged();
     }
 
