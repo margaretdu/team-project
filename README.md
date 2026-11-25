@@ -56,18 +56,109 @@ As a user, I want to search different decks and flashcards so that I can find sp
 
 ---
 ## Use Cases
-### Use Case 1
-Create Deck
+### Use Case 1: Create Deck
+**Lead:** Maria Shamshurina <br>
+**Success outcome:** The user can create a deck object
+
+<details>
+<summary>Detailed Use Case</summary>
+
+**Primary Actor:** User creating a deck
+
+**Preconditions:** User is on the deck viewing screen, the deck name isn't empty, the deck name is unique
+
+**Trigger:** the User clicks the create deck button
+
+**Main success scenario:**
+1. User is looking at the home page
+2. User can press the create deck button
+3. User is taken to the deck creation screen
+4. User can input a deck name 
+5. User can click create deck and be redirected to deck viewing screen
+
+**Extensions:**
+- 2a. If the name field is empty or a duplicate name the system will explain this to the user
+- and not implement the deck creation
+</details>
+
 ### Use Case 2
 Edit Deck
-### Use Case 3
-Delete Deck
-### Use Case 4
-Create Flashcard
+### Use Case 3: Delete Deck
+**Lead:** Maria Shamshurina <br>
+**Success outcome:** The user can delete a deck object
+
+<details>
+<summary>Detailed Use Case</summary>
+
+**Primary Actor:** User deleting a deck
+
+**Preconditions:** User is on the deck viewing screen, a deck is selected
+
+**Trigger:** the User clicks the delete deck button
+
+**Main success scenario:**
+1. User is looking at the deck viewing page
+2. User can select a deck
+3. User is can click the delete button
+4. System will confirm that user wants to delete
+5. Deck will be deleted and removed from deck viewing
+
+**Extensions:**
+- 2a. If a deck isn't selected the button won't work
+</details>
+
+### Use Case 4: Create Flashcard
+**Lead:** Maria Shamshurina <br>
+**Success outcome:** The user can create a flashcard object
+
+<details>
+<summary>Detailed Use Case</summary>
+
+**Primary Actor:** User creating a flashcard
+
+**Preconditions:** User is on a specific deck viewing screen, the flashcard question and answer inputs aren't empty, the 
+flashcard question is unique
+
+**Trigger:** the User clicks the create flashcard button
+
+**Main success scenario:**
+1. User is looking at a deck page
+2. User can press the create flashcard button
+3. User is taken to the flashcard creation screen
+4. User can input a flashcard question and answer
+5. User can click create flashcard and be redirected to deck viewing screen
+
+**Extensions:**
+- 2a. If the question or answer field is empty, or it is a duplicate question the system will explain this to the user
+- and not implement the flashcard creation
+</details>
+
 ### Use Case 5
 Edit Flashcard
-### Use Case 6
-Delete Flashcard
+### Use Case 6: Delete Flashcard
+**Lead:** Maria Shamshurina <br>
+**Success outcome:** The user can delete a flashcard object
+
+<details>
+<summary>Detailed Use Case</summary>
+
+**Primary Actor:** User deleting a flashcard
+
+**Preconditions:** User is on a deck viewing screen, a flashcard is selected
+
+**Trigger:** the User clicks the delete flashcard button
+
+**Main success scenario:**
+1. User is looking at a deck view page
+2. User can select a flashcard
+3. User is can click the delete button
+4. System will confirm that user wants to delete
+5. Flashcard will be deleted and removed from deck viewing
+
+**Extensions:**
+- 2a. If a flashcard isn't selected the button won't work
+</details>
+
 ### Use Case 8: View all flashcard decks
 **Lead:** Janica Krznaric <br>
 **Success outcome:** The user can see all available flashcard decks
