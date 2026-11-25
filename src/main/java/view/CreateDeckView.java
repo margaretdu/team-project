@@ -113,8 +113,17 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
 
     @Override
     public void stateChanged() {
-        if (createDeckViewModel.getState().getNameError() != null) {
-            JOptionPane.showMessageDialog(this, createDeckViewModel.getState().getNameError());
+        final CreateDeckState state = createDeckViewModel.getState();
+
+        if (state.getNameError() != null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    state.getNameError(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            state.setNameError(null);
         }
     }
 
