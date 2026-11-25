@@ -1,6 +1,6 @@
 package use_case.define_highlighted;
 
-import api.DictionaryDatabase;
+import api.DictionaryInteractor;
 
 public class DefineHighlightedInteractor implements DefineHighlightedInputBoundary{
     // Constants
@@ -14,7 +14,7 @@ public class DefineHighlightedInteractor implements DefineHighlightedInputBounda
     @Override
     public void execute(DefineHighlightedInputData inputData) {
         final String word = inputData.getWord();
-        final String definition = DictionaryDatabase.GetDefinition(word);
+        final String definition = DictionaryInteractor.GetDefinition(word);
 
         DefineHighlightedOutputData outputData = new DefineHighlightedOutputData(word, definition);
 

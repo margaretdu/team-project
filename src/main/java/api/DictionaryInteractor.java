@@ -1,7 +1,5 @@
 package api;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -12,7 +10,7 @@ import okhttp3.Response;
 /**
  * DictionaryDatabase class.
  */
-public class DictionaryDatabase {
+public class DictionaryInteractor {
     // constants
 
     private static final String API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en";
