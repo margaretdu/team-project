@@ -56,8 +56,10 @@ public class DictionaryDatabase {
 
         final JSONObject responseBody = GetResponse(word);
 
-        return "";
-    }
+        return responseBody.getJSONObject(MEANINGS)
+                .getJSONObject(DEFINITIONS)
+                .getString(DEFINITION);
 
+    }
 
 }
