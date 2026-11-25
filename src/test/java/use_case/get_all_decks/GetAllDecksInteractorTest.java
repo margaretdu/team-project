@@ -29,6 +29,22 @@ public class GetAllDecksInteractorTest {
         public boolean noAvailableDecks() { return decks.isEmpty(); }
     }
 
+    // presenter
+    private static class OutputRecorder implements GetAllDecksOutputBoundary {
+        GetAllDecksOutputData success;
+        String empty;
+
+        @Override
+        public void prepareSuccessView(GetAllDecksOutputData data) {
+            success = data;
+        }
+
+        @Override
+        public void prepareEmptyView(String error) {
+            empty = error;
+        }
+    }
+
     @Test
     void successTest() {
         List<Deck> list = new ArrayList<>();
@@ -45,45 +61,29 @@ public class GetAllDecksInteractorTest {
         list.add(deck2);
 
         GetAllDecksDataAccessInterface decks = new TestMockDeckDataAccessObject(list);
-
-        GetAllDecksOutputBoundary successPresenter = new GetAllDecksOutputBoundary() {
-            @Override
-            public void prepareSuccessView(GetAllDecksOutputData decks) {
-                Map<String, Integer> map = new HashMap<>(Map.of(
-                        "CSC207H1", 3,
-                        "MAT257Y1", 2
-                ));
-                assertEquals(map, decks.getDecks());
-            }
-
-            @Override
-            public void prepareEmptyView(String error) {
-                fail("Use case failure is unexpected.");
-            }
-        };
-
-        GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, successPresenter);
+        OutputRecorder recorder = new OutputRecorder();
+        GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, recorder);
         interactor.execute();
+
+        Map<String, Integer> map = new HashMap<>(Map.of(
+                "CSC207H1", 3,
+                "MAT257Y1", 2
+        ));
+        assertNotNull(recorder.success);
+        assertEquals(map, recorder.success.getDecks());
+        assertNull(recorder.empty);
     }
 
 
     @Test
     void noAvailableDecksTest() {
         GetAllDecksDataAccessInterface decks = new TestMockDeckDataAccessObject(new ArrayList<>());
-
-        GetAllDecksOutputBoundary emptyPresenter = new GetAllDecksOutputBoundary() {
-            @Override
-            public void prepareSuccessView(GetAllDecksOutputData decks) {
-                fail("Use case success is unexpected.");
-            }
-
-            @Override
-            public void prepareEmptyView(String error) {
-                assertNotNull(error);
-            }
-        };
-
-        GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, emptyPresenter);
+        OutputRecorder recorder = new OutputRecorder();
+        GetAllDecksInputBoundary interactor = new GetAllDecksInteractor(decks, recorder);
         interactor.execute();
+
+        assertNull(recorder.success);
+        assertNotNull(recorder.empty);
+        assertEquals("No Flashcard Decks have been added", recorder.empty);
     }
 }
