@@ -55,10 +55,14 @@ public class CreateDeckView extends JPanel implements ActionListener, CreateDeck
                         if (e.getSource().equals(createDeck)) {
                             final CreateDeckState currentState = createDeckViewModel.getState();
 
-                            createDeckController.execute(
-                                    currentState.getName()
-                            );
-                            getAllDecksController.execute();
+                            currentState.setNameError(null);
+
+                            createDeckController.execute(currentState.getName());
+
+                            if (createDeckViewModel.getState().getNameError() == null) {
+                                nameInputField.setText("");
+                                getAllDecksController.execute();
+                            }
                         }
                     }
                 }
