@@ -6,6 +6,7 @@ import interface_adapter.get_deck.GetDeckController;
 import interface_adapter.get_deck.deck_view.GetDeckState;
 import interface_adapter.get_deck.deck_view.GetDeckViewModel;
 import interface_adapter.get_deck.deck_view.GetDeckViewModelListener;
+import interface_adapter.delete_flashcard.DeleteFlashcardController;
 import view.AppTheme;
 import view.FormattedButton;
 
@@ -28,6 +29,7 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
     private final JLabel cardCount = new JLabel();
     private final JLabel emptyDeckError = new JLabel();
     private final JButton study = new FormattedButton("Study");
+    private final JButton delete = new FormattedButton("Delete");
 
     private final CardLayout flashcardLayout = new CardLayout();
     private final JPanel flashcardPanel = new JPanel(flashcardLayout);
@@ -35,6 +37,7 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
     private GetDeckController getDeckController = null;
     private GetAllDecksController getAllDecksController = null;
     private CreateFlashcardController createFlashcardController = null;
+    private DeleteFlashcardController deleteFlashcardController = null;
 
     public DeckView(GetDeckViewModel getDeckViewModel) {
         this.getDeckViewModel = getDeckViewModel;
@@ -63,6 +66,8 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
         JButton add = new FormattedButton("Add");
         add.addActionListener(evt -> createFlashcardController.switchToCreateFlashcardView(deckName.getText()));
 
+        delete.setEnabled(false);
+
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         buttons.setOpaque(false);
@@ -71,6 +76,9 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
         buttons.add(study);
         buttons.add(Box.createVerticalStrut(10));
         buttons.add(add);
+        buttons.add(Box.createVerticalStrut(10));
+        buttons.add(delete);
+
 
         // toolBar
         JPanel toolBar = new JPanel(new BorderLayout());
@@ -117,6 +125,34 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
             public boolean getScrollableTracksViewportWidth () { return true; }
         };
         flashcards.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        flashcards.addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) {
+                delete.setEnabled(flashcards.getSelectedValue() != null);
+            }
+        });
+        delete.addActionListener(event -> {
+            SwingDeck selectedFlashcard = flashcards.getSelectedValue();
+
+            if (selectedFlashcard == null) {
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this flashcard?",
+                    "Delete Flashcard",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                deleteFlashcardController.execute(
+                        deckName.getText(),
+                        selectedFlashcard.getQuestion()
+                );
+
+                getDeckController.execute(deckName.getText(), "deckView");
+            }
+        });
         flashcards.setBackground(AppTheme.BG_COLOR);
         flashcards.setCellRenderer(new SwingDeckRenderer());
 
@@ -207,6 +243,10 @@ public class DeckView extends JPanel implements GetDeckViewModelListener {
 
     public void setCreateFlashcardController(CreateFlashcardController createFlashcardController) {
         this.createFlashcardController = createFlashcardController;
+    }
+
+    public void setDeleteFlashcardController(DeleteFlashcardController deleteFlashcardController) {
+        this.deleteFlashcardController = deleteFlashcardController;
     }
 
     private void showDefinePopup(Component invoker, int x, int y, String word) {

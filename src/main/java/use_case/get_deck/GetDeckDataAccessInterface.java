@@ -20,4 +20,7 @@ public interface GetDeckDataAccessInterface {
      * @return the Deck object
      */
     Deck getDeck(String name);
+
+    // for flashcard deletion process
+    void deleteFlashcard(String deckName, String question);
 }

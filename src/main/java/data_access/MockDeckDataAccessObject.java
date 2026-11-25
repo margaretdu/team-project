@@ -107,7 +107,18 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
 
     @Override
     public boolean deckExists(String name) {
-        return true;
+        for (Deck deck : decks) {
+            if (deck.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteFlashcard(String deckName, String question) {
+        Deck deck = getDeck(deckName);
+        deck.removeFlashcard(question);
     }
 
     @Override

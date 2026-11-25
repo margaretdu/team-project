@@ -33,6 +33,12 @@ import use_case.get_deck.GetDeckOutputBoundary;
 import view.*;
 import view.deck_view.DeckView;
 import view.deck_view.StudyView;
+import interface_adapter.delete_flashcard.DeleteFlashcardController;
+import interface_adapter.delete_flashcard.DeleteFlashcardPresenter;
+import interface_adapter.delete_flashcard.DeleteFlashcardViewModel;
+import use_case.delete_flashcard.DeleteFlashcardInputBoundary;
+import use_case.delete_flashcard.DeleteFlashcardInteractor;
+import use_case.delete_flashcard.DeleteFlashcardOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,6 +73,8 @@ public class AppBuilder {
 
     private CreateDeckView createDeckView;
     private CreateDeckViewModel createDeckViewModel;
+
+    private DeleteFlashcardViewModel deleteFlashcardViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -157,6 +165,26 @@ public class AppBuilder {
         CreateDeckController controller = new CreateDeckController(createDeckInteractor);
         createDeckView.setCreateDeckController(controller);
         homescreenView.setCreateDeckController(controller);
+        return this;
+    }
+
+    public AppBuilder addDeleteFlashcardUseCase() {
+        deleteFlashcardViewModel = new DeleteFlashcardViewModel();
+
+        final DeleteFlashcardOutputBoundary deleteFlashcardOutputBoundary =
+                new DeleteFlashcardPresenter(deleteFlashcardViewModel);
+
+        final DeleteFlashcardInputBoundary deleteFlashcardInteractor =
+                new DeleteFlashcardInteractor(
+                        deckDataAccessObject,
+                        deleteFlashcardOutputBoundary
+                );
+
+        DeleteFlashcardController controller =
+                new DeleteFlashcardController(deleteFlashcardInteractor);
+
+        deckView.setDeleteFlashcardController(controller);
+
         return this;
     }
 
