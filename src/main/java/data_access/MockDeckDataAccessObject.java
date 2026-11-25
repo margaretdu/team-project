@@ -17,19 +17,19 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
     private final List<Deck> decks = new ArrayList<>();
 
     public MockDeckDataAccessObject(DeckFactory deckFactory) {
-//        decks.add(mockDataMakeDeck("CSC207H1"));
-//
-//        Deck deck = new Deck("MAT257Y1");
-//        mockDataAddFlashcardsShort(deck);
-//        decks.add(deck);
-//        decks.add(mockDataMakeDeck("CSC148H1"));
-//        decks.add(mockDataMakeDeck("CSC236H1"));
-//        decks.add(mockDataMakeDeck("CSC240H1"));
-//        decks.add(mockDataMakeDeck("CSC258H1"));
-//        decks.add(mockDataMakeDeck("MAT267H1"));
-//        decks.add(mockDataMakeDeck("CSC209H1"));
-//        decks.add(mockDataMakeDeck("MAT237Y1"));
-//        decks.add(new Deck("ESS250H1"));
+        decks.add(mockDataMakeDeck("CSC207H1"));
+
+        Deck deck = new Deck("MAT257Y1");
+        mockDataAddFlashcardsShort(deck);
+        decks.add(deck);
+        decks.add(mockDataMakeDeck("CSC148H1"));
+        decks.add(mockDataMakeDeck("CSC236H1"));
+        decks.add(mockDataMakeDeck("CSC240H1"));
+        decks.add(mockDataMakeDeck("CSC258H1"));
+        decks.add(mockDataMakeDeck("MAT267H1"));
+        decks.add(mockDataMakeDeck("CSC209H1"));
+        decks.add(mockDataMakeDeck("MAT237Y1"));
+        decks.add(new Deck("ESS250H1"));
     }
 
     private void mockDataAddFlashcardsShort(Deck deck) {
