@@ -1,13 +1,6 @@
 package use_case.define_highlighted;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import api.DictionaryDatabase;
 
 public class DefineHighlightedInteractor implements DefineHighlightedInputBoundary{
     // Constants
@@ -20,6 +13,12 @@ public class DefineHighlightedInteractor implements DefineHighlightedInputBounda
 
     @Override
     public void execute(DefineHighlightedInputData inputData) {
+        final String word = inputData.getWord();
+        final String definition = DictionaryDatabase.GetDefinition(word);
+
+        DefineHighlightedOutputData outputData = new DefineHighlightedOutputData(word, definition);
+
+        defineHighlightedPresenter.prepareSuccessView(outputData);
 
     }
 }

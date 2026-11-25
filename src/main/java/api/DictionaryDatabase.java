@@ -26,7 +26,7 @@ public class DictionaryDatabase {
      * Requests the dictionary API for a word. Returns the JSONObject formatted request.
      * @param word
      */
-    public JSONObject GetResponse(String word) {
+    public static JSONObject GetResponse(String word) {
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
 
         // Making the URL according to the original README
@@ -52,7 +52,7 @@ public class DictionaryDatabase {
      * Gets the definition for a word.
      * @param word
      */
-    public String GetDefinition(String word) {
+    public static String GetDefinition(String word) {
 
         final JSONObject responseBody = GetResponse(word);
 
