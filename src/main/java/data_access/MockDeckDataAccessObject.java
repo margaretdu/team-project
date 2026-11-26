@@ -5,6 +5,8 @@ import entity.DeckFactory;
 import entity.Flashcard;
 import use_case.get_all_decks.GetAllDecksDataAccessInterface;
 import use_case.get_deck.GetDeckDataAccessInterface;
+import use_case.delete_deck.DeleteDeckDataAccessInterface;
+import use_case.delete_flashcard.DeleteFlashcardDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,11 @@ import java.util.List;
 /**
  * DeckDataAccessObject used for testing, gives mock data
  */
-public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface, GetDeckDataAccessInterface {
+public class MockDeckDataAccessObject implements
+        GetAllDecksDataAccessInterface,
+        GetDeckDataAccessInterface,
+        DeleteDeckDataAccessInterface,
+        DeleteFlashcardDataAccessInterface {
 
     private final List<Deck> decks = new ArrayList<>();
 
@@ -42,12 +48,12 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
         deck.addFlashcard(new Flashcard(
                 "Checked Exceptions",
                 "-like IOException these are child " +
-                "classes of Exception that the developer must check (except runtime exception)\n" +
-                "-The method caller must either catch or throw the exception, this is checked " +
-                "when the code is compiled.\n" +
-                "- use try, catch. Or throw exception\n" +
-                "-use checked exceptions for conditions from which the caller can reasonably be " +
-                "expected to recover."));
+                        "classes of Exception that the developer must check (except runtime exception)\n" +
+                        "-The method caller must either catch or throw the exception, this is checked " +
+                        "when the code is compiled.\n" +
+                        "- use try, catch. Or throw exception\n" +
+                        "-use checked exceptions for conditions from which the caller can reasonably be " +
+                        "expected to recover."));
         deck.addFlashcard(new Flashcard(
                 "Unchecked Exceptions",
                 "Like Error and RuntimeException and any of their subclasses. " +
@@ -62,18 +68,18 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
         deck.addFlashcard(new Flashcard(
                 "Usecase",
                 "Name\n" +
-                "Primary Actor\n" +
-                "Precondition\n" +
-                "Trigger\n" +
-                "success outcome\n" +
-                "Main success scenario\n" +
-                "extension"));
+                        "Primary Actor\n" +
+                        "Precondition\n" +
+                        "Trigger\n" +
+                        "success outcome\n" +
+                        "Main success scenario\n" +
+                        "extension"));
         deck.addFlashcard(new Flashcard(
                 "Disability",
                 "a physical or mental impairment that is associated with a personal " +
                         "or social limitation on the activities one can perform. " +
                         "You can look at disabilities through the medical or social model\n" +
-                "Example, physical: paraplegia, social: not being able to access public spaces."));
+                        "Example, physical: paraplegia, social: not being able to access public spaces."));
 
         String gettysburgAddress = "Four score and seven years ago our fathers brought forth on this " +
                 "continent, a new nation, conceived in Liberty, and dedicated to the " +
@@ -89,6 +95,18 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
                 "hallow -- this ground. The brave men, living and dead, who struggled here, have " +
                 "consecrated it, far above our poor power to add or detract.";
         deck.addFlashcard(new Flashcard("the Gettysburg Address", gettysburgAddress));
+    }
+
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    public void addFlashcard(String deckName, Flashcard flashcard) {
+        Deck deck = getDeck(deckName);
+
+        if (deck != null) {
+            deck.addFlashcard(flashcard);
+        }
     }
 
     private Deck mockDataMakeDeck(String name) {
@@ -116,14 +134,8 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
     }
 
     @Override
-    public void deleteFlashcard(String deckName, String question) {
-        Deck deck = getDeck(deckName);
-        deck.removeFlashcard(question);
-    }
-
-    @Override
     public Deck getDeck(String name) {
-        for (Deck deck: decks) {
+        for (Deck deck : decks) {
             if (deck.getName().equals(name)) {
                 return deck;
             }
@@ -132,18 +144,26 @@ public class MockDeckDataAccessObject implements GetAllDecksDataAccessInterface,
     }
 
     @Override
+    public boolean existsByName(String name) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void deleteDeck(String name) {
         decks.removeIf(deck -> deck.getName().equals(name));
     }
-    public void addDeck(Deck deck) {
-        decks.add(deck);
-    }
 
-    public void addFlashcard(String name, Flashcard flashcard) {
-        for (Deck deck: decks) {
-            if (deck.getName().equals(name)) {
-                deck.addFlashcard(flashcard);
-            }
+    @Override
+    public void deleteFlashcard(String deckName, String question) {
+        Deck deck = getDeck(deckName);
+
+        if (deck != null) {
+            deck.removeFlashcard(question);
         }
     }
 }

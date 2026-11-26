@@ -12,15 +12,21 @@ public class DeleteFlashcardPresenter implements DeleteFlashcardOutputBoundary {
 
     @Override
     public void prepareSuccessView() {
-        DeleteFlashcardState state = deleteFlashcardViewModel.getState();
+        DeleteFlashcardState state = new DeleteFlashcardState();
         state.setSuccess(true);
+        state.setError(null);
+
+        deleteFlashcardViewModel.setState(state);
         deleteFlashcardViewModel.notifyStateChanged();
     }
 
     @Override
     public void prepareFailView(String error) {
-        DeleteFlashcardState state = deleteFlashcardViewModel.getState();
+        DeleteFlashcardState state = new DeleteFlashcardState();
+        state.setSuccess(false);
         state.setError(error);
+
+        deleteFlashcardViewModel.setState(state);
         deleteFlashcardViewModel.notifyStateChanged();
     }
 }

@@ -1,16 +1,13 @@
 package use_case.delete_flashcard;
 
-import use_case.get_deck.GetDeckDataAccessInterface;
-
 public class DeleteFlashcardInteractor implements DeleteFlashcardInputBoundary {
 
-    private final GetDeckDataAccessInterface deckDataAccessObject;
+    private final DeleteFlashcardDataAccessInterface deckDataAccessObject;
     private final DeleteFlashcardOutputBoundary presenter;
 
     public DeleteFlashcardInteractor(
-            GetDeckDataAccessInterface deckDataAccessObject,
+            DeleteFlashcardDataAccessInterface deckDataAccessObject,
             DeleteFlashcardOutputBoundary presenter) {
-
         this.deckDataAccessObject = deckDataAccessObject;
         this.presenter = presenter;
     }

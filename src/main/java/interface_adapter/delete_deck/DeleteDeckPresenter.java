@@ -12,17 +12,21 @@ public class DeleteDeckPresenter implements DeleteDeckOutputBoundary {
 
     @Override
     public void prepareSuccessView() {
-        DeleteDeckState state = deleteDeckViewModel.getState();
+        DeleteDeckState state = new DeleteDeckState();
         state.setSuccess(true);
         state.setError(null);
+
+        deleteDeckViewModel.setState(state);
         deleteDeckViewModel.notifyStateChanged();
     }
 
     @Override
     public void prepareFailView(String error) {
-        DeleteDeckState state = deleteDeckViewModel.getState();
+        DeleteDeckState state = new DeleteDeckState();
         state.setSuccess(false);
         state.setError(error);
+
+        deleteDeckViewModel.setState(state);
         deleteDeckViewModel.notifyStateChanged();
     }
 }

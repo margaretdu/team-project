@@ -1,14 +1,12 @@
 package use_case.delete_deck;
 
-import use_case.get_all_decks.GetAllDecksDataAccessInterface;
-
 public class DeleteDeckInteractor implements DeleteDeckInputBoundary {
 
-    private final GetAllDecksDataAccessInterface deckDataAccessObject;
+    private final DeleteDeckDataAccessInterface deckDataAccessObject;
     private final DeleteDeckOutputBoundary presenter;
 
     public DeleteDeckInteractor(
-            GetAllDecksDataAccessInterface deckDataAccessObject,
+            DeleteDeckDataAccessInterface deckDataAccessObject,
             DeleteDeckOutputBoundary presenter) {
         this.deckDataAccessObject = deckDataAccessObject;
         this.presenter = presenter;
@@ -24,16 +22,7 @@ public class DeleteDeckInteractor implements DeleteDeckInputBoundary {
             return;
         }
 
-        boolean deckExists = false;
-
-        for (entity.Deck deck : deckDataAccessObject.getAllDecks()) {
-            if (deck.getName().equals(name)) {
-                deckExists = true;
-                break;
-            }
-        }
-
-        if (!deckExists) {
+        if (!deckDataAccessObject.existsByName(name)) {
             presenter.prepareFailView("Deck does not exist.");
             return;
         }

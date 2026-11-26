@@ -4,9 +4,10 @@ import entity.Deck;
 import entity.Flashcard;
 import use_case.create_deck.CreateDeckDataAccessInterface;
 import use_case.create_flashcard.CreateFlashcardFlashcardDataAccessInterface;
+import use_case.delete_flashcard.DeleteFlashcardDataAccessInterface;
 
 public class MockFlashcardDataAccessObject implements CreateFlashcardFlashcardDataAccessInterface,
-        CreateDeckDataAccessInterface {
+        CreateDeckDataAccessInterface, DeleteFlashcardDataAccessInterface {
     private final MockDeckDataAccessObject mockDeckDataAccessObject;
 
     public MockFlashcardDataAccessObject(MockDeckDataAccessObject mockDeckDataAccessObject) {
@@ -32,4 +33,15 @@ public class MockFlashcardDataAccessObject implements CreateFlashcardFlashcardDa
     public void save(String name, Flashcard flashcard) {
         mockDeckDataAccessObject.addFlashcard(name, flashcard);
     }
+
+    @Override
+    public boolean deckExists(String name) {
+        return mockDeckDataAccessObject.deckExists(name);
+    }
+
+    @Override
+    public void deleteFlashcard(String deckName, String question) {
+        mockDeckDataAccessObject.deleteFlashcard(deckName, question);
+    }
+
 }
