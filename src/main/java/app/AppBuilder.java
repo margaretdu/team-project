@@ -3,6 +3,7 @@ package app;
 import data_access.MockDeckDataAccessObject;
 import entity.DeckFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.define_highlighted.DefineHighlightedViewModel;
 import interface_adapter.get_all_decks.GetAllDecksController;
 import interface_adapter.get_all_decks.GetAllDecksPresenter;
 import interface_adapter.get_all_decks.GetAllDecksViewModel;
@@ -46,6 +47,9 @@ public class AppBuilder {
 
     private StudyView studyView;
     private StudyViewModel studyViewModel;
+
+    private DefineHighlightedView defineHighlightedView;
+    private DefineHighlightedViewModel defineHighlightedViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
