@@ -5,6 +5,7 @@ import interface_adapter.define_highlighted.DefineHighlightedViewModel;
 import interface_adapter.define_highlighted.DefineHighlightedViewModelListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,6 +20,15 @@ public class DefineHighlightedView extends JPanel implements ActionListener, Def
     public DefineHighlightedView(DefineHighlightedViewModel defineHighlightedViewModel) {
         this.defineHighlightedViewModel = defineHighlightedViewModel;
         defineHighlightedViewModel.addListener(this);
+
+        // getting stuff out of the viewmodel
+
+        defineHighlightedViewModel
+
+        // title text
+        final JLabel title = new JLabel("Definition");
+        title.setFont(new Font(AppTheme.FONT_NAME, Font.BOLD, AppTheme.FONT_SIZE_TITLE));
+        title.setForeground(AppTheme.TEXT_PRIMARY);
     }
 
     @Override

@@ -11,6 +11,6 @@ public interface DefineHighlightedInputBoundary {
      * Executes the DefineHighlighted use case.
      * @param inputData is the input data
     */
-    void execute(DefineHighlightedInputData inputData) throws IOException;
+    void execute(DefineHighlightedInputData inputData);
 
 }
