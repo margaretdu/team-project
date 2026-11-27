@@ -24,7 +24,7 @@ public class MockFlashcardDataAccessObject implements CreateFlashcardFlashcardDa
     }
 
     @Override
-    public boolean existsByQuestion(String question) {
+    public boolean existsByQuestion(String name, String question) {
         return false;
     }
 
