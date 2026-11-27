@@ -21,7 +21,8 @@ public class CreateFlashcardInteractor implements CreateFlashcardInputBoundary{
 
     @Override
     public void execute(CreateFlashcardInputData createFlashcardInputData) {
-        if (flashcardDataAccessObject.existsByQuestion(createFlashcardInputData.getQuestion())) {
+        if (flashcardDataAccessObject.existsByQuestion(createFlashcardInputData.getDeckName(),
+                createFlashcardInputData.getQuestion())) {
             flashcardPresenter.prepareFailView("Flashcard with this question already exists.");
         }
         else if (createFlashcardInputData.getQuestion() == null ||
